@@ -45,6 +45,8 @@ public class OpenTKApp : GameWindow
 		// called once per frame; app logic
 		var keyboard = OpenTK.Input.Keyboard.GetState();
 		if (keyboard[OpenTK.Input.Key.Escape]) this.Exit();
+
+            game.Input(keyboard);
 	}
 	protected override void OnRenderFrame( FrameEventArgs e )
 	{
