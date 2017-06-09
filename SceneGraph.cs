@@ -8,23 +8,41 @@ namespace Template_P3
 {
     class SceneGraph
     {
-        Matrix3 cameraMatrix; //based on user input
-        List<Mesh> meshList;
+       
+        public List<Mesh> meshList;
         public SceneGraph()
         {
             meshList = new List<Mesh>();
         }
-        public void Render()
+        public void AddMesh(Mesh m, Mesh p)
         {
+            m.parent = p;
+            meshList.Add(m);
+        }
+       
+
+        public void Render(Matrix4 CameraMatrix, Shader shader, Texture wood)
+        {
+
             foreach(Mesh m in meshList)
             {
-                Matrix3 resultMatrix = m.viewMatrix;
+                Matrix4 resultMatrix = m.ModelMatrix ;
+
+                
+
                 Mesh branch = m;    //follows the hierarchy
-                while(branch.parent != null)    //while it has a parent
+                while (branch.parent != null)    //while it has a parent
                 {
+                    
+                    
                     branch = branch.parent;
-                    //multiply resultMatrix and branch.viewMatrix
+                    resultMatrix *= branch.ModelMatrix ;
+
                 }
+
+                resultMatrix *= CameraMatrix;
+
+                m.Render(shader, resultMatrix, wood);
             }
         }
     }

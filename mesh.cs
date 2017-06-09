@@ -5,26 +5,31 @@ using OpenTK.Graphics.OpenGL;
 
 namespace Template_P3 {
 
-// mesh and loader based on work by JTalton; http://www.opentk.com/node/642
+    
+    // mesh and loader based on work by JTalton; http://www.opentk.com/node/642
 
     public class Mesh
     {
-	    // data members
-	    public ObjVertex[] vertices;			// vertex positions, model space
+        const float PI = 3.1415926535f;
+        // data members
+        public ObjVertex[] vertices;			// vertex positions, model space
 	    public ObjTriangle[] triangles;			// triangles (3 vertex indices)
 	    public ObjQuad[] quads;					// quads (4 vertex indices)
 	    int vertexBufferId;						// vertex buffer
 	    int triangleBufferId;					// triangle buffer
 	    int quadBufferId;                       // quad bufferz
 
-        public Matrix3 viewMatrix;
+        public Matrix4 ModelMatrix; //Matrix for the modelview  
         public Mesh parent;         //points to the parent, if it stays null it does not have a parent
 
+
+        float a = 0;
 	    // constructor
 	    public Mesh( string fileName )
 	    {
 		    MeshLoader loader = new MeshLoader();
 		    loader.Load( this, fileName );
+            ModelMatrix = new Matrix4(new Vector4(1, 0, 0,0), new Vector4(0, 1, 0, 0), new Vector4(0, 0, 1, 0), new Vector4(0, 0, 0, 1));
 	    }
 
 	    // initialization; called during first render
@@ -54,8 +59,14 @@ namespace Template_P3 {
 		    // on first run, prepare buffers
 		    Prepare( shader );
 
-		    // enable texture
-		    int texLoc = GL.GetUniformLocation( shader.programID, "pixels" );
+            a += 0.01f;
+            if (a > 2 * PI) a -= 2 * PI;
+            ModelMatrix = Matrix4.CreateRotationY( a);
+            
+
+
+            // enable texture
+            int texLoc = GL.GetUniformLocation( shader.programID, "pixels" );
 		    GL.Uniform1( texLoc, 0 );
 		    GL.ActiveTexture( TextureUnit.Texture0 );
 		    GL.BindTexture( TextureTarget.Texture2D, texture.id );

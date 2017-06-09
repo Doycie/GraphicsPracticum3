@@ -23,6 +23,8 @@ class Game
 	ScreenQuad quad;						// screen filling quad for post processing
 	bool useRenderTarget = true;
 
+        SceneGraph scenegraph;
+
 	// initialize
 	public void Init()
 	{
@@ -41,7 +43,12 @@ class Game
 		// create the render target
 		target = new RenderTarget( screen.width, screen.height );
 		quad = new ScreenQuad();
-   	}
+
+        scenegraph = new SceneGraph();
+            scenegraph.AddMesh(floor,null);
+            scenegraph.AddMesh(mesh,floor);
+        
+    }
 
 	// tick for background surface
 	public void Tick()
@@ -59,33 +66,43 @@ class Game
 		timer.Start();
 	
 		// prepare matrix for vertex shader
-		Matrix4 transform = Matrix4.CreateFromAxisAngle( new Vector3( 0, 1, 0 ), a );
+		Matrix4 transform = Matrix4.CreateFromAxisAngle( new Vector3( 0, 1, 0 ), 0 );
 		transform *= Matrix4.CreateTranslation( 0, -4, -15 );
 		transform *= Matrix4.CreatePerspectiveFieldOfView( 1.2f, 1.3f, .1f, 1000 );
 
 		// update rotation
-		a += 0.001f * frameDuration; 
-		if (a > 2 * PI) a -= 2 * PI;
+	
 
-		if (useRenderTarget)
-		{
-			// enable render target
-			target.Bind();
 
-			// render scene to render target
-			mesh.Render( shader, transform, wood );
-			floor.Render( shader, transform, wood );
+            if (useRenderTarget)
+            {
+                target.Bind();
+                scenegraph.Render(transform, shader, wood);
+                target.Unbind();
+                quad.Render(postproc, target.GetTextureID());
+            }else
+            {
+                scenegraph.Render(transform, shader, wood);
+            }
+		//if (useRenderTarget)
+		//{
+		//	// enable render target
+		//	target.Bind();
 
-			// render quad
-			target.Unbind();
-			quad.Render( postproc, target.GetTextureID() );
-		}
-		else
-		{
-			// render scene directly to the screen
-			mesh.Render( shader, transform, wood );
-			floor.Render( shader, transform, wood );
-		}
+		//	// render scene to render target
+		//	mesh.Render( shader, transform, wood );
+		//	floor.Render( shader, transform, wood );
+
+		//	// render quad
+		//	target.Unbind();
+		//	quad.Render( postproc, target.GetTextureID() );
+		//}
+		//else
+		//{
+		//	// render scene directly to the screen
+		//	mesh.Render( shader, transform, wood );
+		//	floor.Render( shader, transform, wood );
+		//}
 	}
 }
 
