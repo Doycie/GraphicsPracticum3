@@ -246,7 +246,6 @@ ModelManifest.xml
 
 # FAKE - F# Make
 .fake/
-GLSLRayTracer/GLSLRayTracer/.vs/template/v15/.suo
-GLSLRayTracer/GLSLRayTracer/.vs/template/v14/.suo
-GLSLRayTracer/GLSLRayTracer/.vs/template/v14/.suo
-GLSLRayTracer/GLSLRayTracer/obj/Debug/GLSLRayTracer.csproj.FileListAbsolute.txt
+
+# Do not ignore assets/
+!assets/*
