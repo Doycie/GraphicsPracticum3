@@ -1,9 +1,0 @@
-D:\Dev\Uni\Graphics\practicum3\bin\Debug\template_P3.exe.config
-D:\Dev\Uni\Graphics\practicum3\GraphicsPracticum3\bin\Debug\template_P3.exe.config
-D:\School\[INFOGR] Graphics\GraphicsPracticum3\bin\Debug\template_P3.exe.config
-D:\Dev\Uni\Graphics\practicum3\GraphicsPracticum3\bin\Debug\template_P3.exe
-D:\Dev\Uni\Graphics\practicum3\GraphicsPracticum3\bin\Debug\template_P3.pdb
-D:\Dev\Uni\Graphics\practicum3\GraphicsPracticum3\bin\Debug\OpenTK.dll
-D:\Dev\Uni\Graphics\practicum3\GraphicsPracticum3\obj\Debug\template_P3.csprojResolveAssemblyReference.cache
-D:\Dev\Uni\Graphics\practicum3\GraphicsPracticum3\obj\Debug\template_P3.exe
-D:\Dev\Uni\Graphics\practicum3\GraphicsPracticum3\obj\Debug\template_P3.pdb
