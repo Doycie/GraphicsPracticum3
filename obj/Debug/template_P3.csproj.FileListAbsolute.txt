@@ -1,3 +1,0 @@
-D:\Dev\Uni\Graphics\practicum3\bin\Debug\template_P3.exe.config
-D:\Dev\Uni\Graphics\practicum3\GraphicsPracticum3\bin\Debug\template_P3.exe.config
-D:\School\[INFOGR] Graphics\GraphicsPracticum3\bin\Debug\template_P3.exe.config
