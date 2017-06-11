@@ -18,8 +18,8 @@ out vec3 vertex;
 void main()
 {
 	// transform vertex using supplied matrices
-	gl_Position =   projmatrix * modelmatrix * vec4(vPosition, 1.0) ;
-
+	gl_Position = projmatrix * modelmatrix * vec4(vPosition, 1.0) ;
+	
 	normal = normalmatrix * vec4( vNormal, 0.0f );
 	// forward normal and uv coordinate; will be interpolated over triangle
 	uv = vUV;

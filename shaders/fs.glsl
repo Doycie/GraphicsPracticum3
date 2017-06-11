@@ -15,10 +15,18 @@ out vec4 outputColor;
 // fragment shader
 void main()
 {
-	vec3 ab = lightPos - vertex;
+	vec3 lightdir = lightPos - vertex;
 	
-
-    outputColor = texture( pixels, uv ) * max(dot(ab,normal.xyz),0.0);
+	float lamb = max(dot(lightdir,normal.xyz),0.0);
+  
+	vec3 viewdirection = normalize(-vertex);
+    vec3 dir = normalize(lightdir + viewdirection);
+    float specular = max(dot(dir, normal.xyz), 0.0);
+	specular *= specular * specular * specular;
+	
+	
+	outputColor = texture( pixels, uv ) * lamb * specular;
+	
 
 	//outputColor = texture( pixels, uv ) + 0.5f * vec4( normal.xyz, 1 );
 }
