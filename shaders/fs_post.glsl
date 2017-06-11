@@ -6,12 +6,13 @@ in vec2 uv;						// interpolated texture coordinates
 uniform sampler2D pixels;		// input texture (1st pass render target)
 
 // shader output
-out vec3 outputColor;
+out vec4 outputColor;
 
 void main()
 {
 	// retrieve input pixel
-	outputColor = texture( pixels, uv ).rgb;
+	//outputColor = vec4(1.0, 0.0, 1.0, 1.0);
+	outputColor = texture( pixels, uv ).rgba;
 	// apply dummy postprocessing effect
 	//float dx = P.x - 0.5, dy = P.y - 0.5;
 	//float distance = sqrt( dx * dx + dy * dy );

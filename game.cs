@@ -42,7 +42,7 @@ namespace Template_P3
             shader = new Shader("../../shaders/vs.glsl", "../../shaders/fs.glsl");
             postproc = new Shader("../../shaders/vs_post.glsl", "../../shaders/fs_post.glsl");
             // load a texture
-            wood = new Texture("../../assets/wood.jpg");
+            wood = new Texture("../../assets/wood.png");
             // create the render target
             target = new RenderTarget(screen.width, screen.height);
             quad = new ScreenQuad();
@@ -80,8 +80,8 @@ namespace Template_P3
                 target.Bind();
                 scenegraph.Render(camera.getCameraMatrix(), shader, wood);
                 target.Unbind();
-               int a =screen.GenTexture();
-                quad.Render(postproc, target.GetTextureID());
+             //  int a =screen.GenTexture();
+                quad.Render(postproc,target.GetTextureID());
                 
             }
             else
