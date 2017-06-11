@@ -3,8 +3,10 @@ using System.Collections.Generic;
 
 namespace Template_P3
 {
-    internal class SceneGraph
+    public class SceneGraph
     {
+        const float PI = 3.1415926535f;
+        float a = 0;
         public List<Mesh> meshList;
 
         public SceneGraph()
@@ -33,6 +35,10 @@ namespace Template_P3
 
                 m.Render(shader, projMatrix, resultMatrix, wood);
             }
+            a = 0.01f;
+            if (a > 2 * PI) a -= 2 * PI;
+            meshList[2].ModelMatrix *= Matrix4.CreateRotationY(a);
+           
         }
     }
 }

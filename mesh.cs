@@ -10,7 +10,7 @@ namespace Template_P3 {
 
     public class Mesh
     {
-        const float PI = 3.1415926535f;
+       
         // data members
         public ObjVertex[] vertices;			// vertex positions, model space
 	    public ObjTriangle[] triangles;			// triangles (3 vertex indices)
@@ -31,6 +31,11 @@ namespace Template_P3 {
 		    loader.Load( this, fileName );
             ModelMatrix = new Matrix4(new Vector4(1, 0, 0,0), new Vector4(0, 1, 0, 0), new Vector4(0, 0, 1, 0), new Vector4(0, 0, 0, 1));
 	    }
+
+        public void Move(Vector3 v)
+        {
+            ModelMatrix *= Matrix4.CreateTranslation(v);
+        }
 
 	    // initialization; called during first render
 	    public void Prepare( Shader shader )
@@ -59,9 +64,7 @@ namespace Template_P3 {
 		    // on first run, prepare buffers
 		    Prepare( shader );
 
-            a += 0.01f;
-            if (a > 2 * PI) a -= 2 * PI;
-            ModelMatrix = Matrix4.CreateRotationY( a);
+          
             
 
 
