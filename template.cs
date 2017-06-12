@@ -13,8 +13,6 @@ namespace Template_P3
         private static Game game;
         private static bool terminated = false;
 
-        
-
         protected override void OnLoad(EventArgs e)
         {
             // called upon app init
