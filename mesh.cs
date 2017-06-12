@@ -36,9 +36,12 @@ namespace Template_P3 {
         {
             ModelMatrix *= Matrix4.CreateTranslation(v);
         }
-
-	    // initialization; called during first render
-	    public void Prepare( Shader shader )
+        public void Scale(Vector3 v)
+        {
+            ModelMatrix *= Matrix4.CreateScale(v);
+        }
+        // initialization; called during first render
+        public void Prepare( Shader shader )
 	    {
             if (vertexBufferId != 0) return; // already taken care of
 
@@ -64,10 +67,6 @@ namespace Template_P3 {
 		    // on first run, prepare buffers
 		    Prepare( shader );
 
-          
-            
-
-
             // enable texture
             int texLoc = GL.GetUniformLocation( shader.programID, "pixels" );
 		    GL.Uniform1( texLoc, 0 );
@@ -83,6 +82,9 @@ namespace Template_P3 {
             Matrix4 normalMatrix = modelmatrix.Inverted();
             normalMatrix.Transpose();
             GL.UniformMatrix4(shader.uniform_mnormal, false, ref normalMatrix);
+
+            GL.Uniform1(shader.attribute_ftime, a);
+            a += 0.01f;
 
 		    // bind interleaved vertex data
 		    GL.EnableClientState( ArrayCap.VertexArray );
