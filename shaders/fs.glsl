@@ -5,7 +5,7 @@ const int lightsAmount = 3;
 uniform vec3 lightPos[lightsAmount] = {{5,1,5},{-5,1,5}, {5,1,-5}};
 uniform vec4 lightColor[lightsAmount] = {{ 0.5,0.0,0.0 , 4.0},{0.0,0.5,0.0,5.0} ,{0.0,0.0,1.0,10.0}};
 
-vec4 ambient = { 0.0,0.0,0.0,1.0}; 
+vec4 ambient = { 1,1,1,1.0}; 
 // shader input
 in vec2 uv;						// interpolated texture coordinates
 in vec4 normal;					// interpolated normal

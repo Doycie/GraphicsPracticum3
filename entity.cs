@@ -17,9 +17,11 @@ public class Entity
         }
     }
     public Entity parent;         //points to the parent, if it stays null it does not have a parent
+    public Texture texture;                           // texture to use for rendering
 
-    public Entity(Mesh m)
+    public Entity(Mesh m, Texture tex)
     {
+        texture = tex;
         mesh = m;
         scale = new Vector3(1, 1, 1);
     }

@@ -21,7 +21,7 @@ namespace Template_P3
             
         }
 
-        public void Render(Matrix4 projMatrix, Shader shader, Texture wood)
+        public void Render(Matrix4 projMatrix, Shader shader)
         {
             a += 0.01f;
             if (a > 2 * PI) a -= 2 * PI;
@@ -42,7 +42,7 @@ namespace Template_P3
                     resultMatrix *= branch.ModelMatrix;
                 }
 
-                m.mesh.Render(shader, projMatrix, resultMatrix, wood);
+                m.mesh.Render(shader, projMatrix, resultMatrix, m.texture);
             }
 
 

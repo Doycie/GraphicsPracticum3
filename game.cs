@@ -10,13 +10,13 @@ namespace Template_P3
         // member variables
         public Surface screen;                  // background surface for printing etc.
 
-        private Entity pot, floor, penguin, sky, penguin2, floor2;                       // a mesh to draw using OpenGL
+        private Entity pot, floor, penguin, sky, penguin2, floor2, cube;                       // a mesh to draw using OpenGL
         private const float PI = 3.1415926535f;         // PI
         private Stopwatch timer;                        // timer for measuring frame duration
         private Shader shader;                          // shader to use for rendering
         private Shader postproc;                        // shader to use for post processing
         private Shader shader_sky;
-        private Texture wood;                           // texture to use for rendering
+
         private RenderTarget target;                    // intermediate render target
         private ScreenQuad quad;                        // screen filling quad for post processing
         private bool useRenderTarget = true;
@@ -28,20 +28,21 @@ namespace Template_P3
         // initialize
         public void Init()
         {
+            Texture t = new Texture("../../assets/wood.jpg");
             // load teapot
-            pot = new Entity(new Mesh("../../assets/teapot.obj"));
-            floor = new Entity(new Mesh("../../assets/floor.obj"));
-            floor2 = new Entity(new Mesh("../../assets/floor.obj"));
-            
-            penguin = new Entity( new Mesh("../../assets/pin.obj"));
-            penguin2 = new Entity(new Mesh("../../assets/pin.obj"));
-            sky = new Entity(new Mesh("../../assets/sky.obj"));
-
+            pot = new Entity(new Mesh("../../assets/teapot.obj"),t);
+            floor = new Entity(new Mesh("../../assets/floor.obj"),t);
+            floor2 = new Entity(new Mesh("../../assets/floor.obj"),t);
+            penguin = new Entity( new Mesh("../../assets/pin.obj"),t);
+            penguin2 = new Entity(new Mesh("../../assets/pin.obj"),t);
             penguin.Move(new Vector3(20.0f,1.0f,1.0f));
             penguin2.Move(new Vector3(5.0f, 1.0f, 1.0f));
-            sky.Scale(new Vector3(50.0f, 50.0f, 50.0f));
             floor2.Scale(new Vector3(10.0f, 10.0f, 10.0f));
             floor2.Move(new Vector3(0, 15.0f, 0));
+
+            t = new Texture("../../assets/cube.png");
+            cube = new Entity(new Mesh("../../assets/cube.obj"),t);
+            cube.Move(new Vector3(20.0f, 5.0f, 5.0f));
 
             // initialize stopwatch
             timer = new Stopwatch();
@@ -51,8 +52,7 @@ namespace Template_P3
             shader = new Shader("../../shaders/vs.glsl", "../../shaders/fs.glsl");
             shader_sky = new Shader("../../shaders/vs_sky.glsl", "../../shaders/fs_sky.glsl");
             postproc = new Shader("../../shaders/vs_post.glsl", "../../shaders/fs_post.glsl");
-            // load a texture
-            wood = new Texture("../../assets/wood.jpg");
+
             // create the render target
             target = new RenderTarget(screen.width, screen.height);
             quad = new ScreenQuad();
@@ -63,6 +63,7 @@ namespace Template_P3
             scenegraph.AddEntity(penguin, pot);
             scenegraph.AddEntity(penguin2, penguin);
             scenegraph.AddEntity(floor2, null);
+            scenegraph.AddEntity(cube, null);
 
             camera = new Camera();
         }
@@ -93,7 +94,7 @@ namespace Template_P3
             if (useRenderTarget)
             {
                 target.Bind();
-                scenegraph.Render(camera.getCameraMatrix(), shader, wood);
+                scenegraph.Render(camera.getCameraMatrix(), shader);
                 //sky.Render(shader_sky, camera.getCameraMatrix(), sky.ModelMatrix * camera.cameraModelMatrix(), wood);
                 target.Unbind();
              //  int a =screen.GenTexture();
@@ -101,7 +102,7 @@ namespace Template_P3
             }
             else
             {
-                scenegraph.Render(camera.getCameraMatrix(), shader, wood);
+                scenegraph.Render(camera.getCameraMatrix(), shader);
             }
           
         }
