@@ -23,14 +23,14 @@ namespace Template_P3
 
         public void Render(Matrix4 projMatrix, Shader shader, Texture wood)
         {
-            a = 0.01f;
+            a += 0.01f;
             if (a > 2 * PI) a -= 2 * PI;
-            entityList[2].ModelMatrix *= Matrix4.CreateRotationX(a);
-            entityList[1].ModelMatrix *= Matrix4.CreateRotationY(a);
-            entityList[0].ModelMatrix *= Matrix4.CreateRotationY(a);
-            entityList[3].ModelMatrix *= Matrix4.CreateRotationX(-a);
+            entityList[2].rotation = new Vector3(a, 0, 0);
+            entityList[1].rotation = new Vector3(0, a, 0);
+            entityList[0].rotation = new Vector3(0, a, 0);
+            entityList[3].rotation = new Vector3(-a, 0, 0);
 
-           
+
             foreach (Entity m in entityList)
             {
                 Matrix4 resultMatrix = m.ModelMatrix;

@@ -98,7 +98,6 @@ namespace Template_P3
                 target.Unbind();
              //  int a =screen.GenTexture();
                 quad.Render(postproc,target.GetTextureID());
-                
             }
             else
             {

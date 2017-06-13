@@ -48,12 +48,14 @@ public class Camera
         transform *= Matrix4.CreatePerspectiveFieldOfView(1.2f, 1.3f, .1f, 1000);
         return transform;
     }
+
     public Matrix4 cameraModelMatrix()
     {
         Matrix4 transform = Matrix4.CreateTranslation(camPos);
         transform *= rotationMatrix;
         return transform;
     }
+
     public void Input(OpenTK.Input.KeyboardState k)
     {
         if (k.IsKeyDown(OpenTK.Input.Key.W))

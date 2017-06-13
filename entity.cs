@@ -1,40 +1,43 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using OpenTK;
 using Template_P3;
-using OpenTK;
 
 public class Entity
 {
-
+    public Vector3 rotation;
+    public Vector3 translation;
+    public Vector3 scale;
     public Mesh mesh;
-    public Matrix4 ModelMatrix; //Matrix for the modelview  
+    public Matrix4 ModelMatrix
+    {
+        get
+        {
+            Matrix4 modelMatrix = Utility.CreateRotationXYZ(rotation);
+            modelMatrix *= Matrix4.CreateScale(scale);
+            return Matrix4.CreateTranslation(translation) * modelMatrix;
+        }
+    }
     public Entity parent;         //points to the parent, if it stays null it does not have a parent
 
     public Entity(Mesh m)
     {
         mesh = m;
-        ModelMatrix = new Matrix4(new Vector4(1, 0, 0, 0), new Vector4(0, 1, 0, 0), new Vector4(0, 0, 1, 0), new Vector4(0, 0, 0, 1));
-      }
+        scale = new Vector3(1, 1, 1);
+    }
     public void SetParent(Entity e) {
         parent = e;
     }
 
     public void SetPostition(Vector3 v)
     {
-        ModelMatrix = Matrix4.CreateTranslation(v);
+        translation = v;
     }
     public void Move(Vector3 v)
     {
-        ModelMatrix *= Matrix4.CreateTranslation(v);
+        translation += v;
     }
     public void Scale(Vector3 v)
     {
-        ModelMatrix *= Matrix4.CreateScale(v);
+        scale = v;
     }
-
-
 }
 

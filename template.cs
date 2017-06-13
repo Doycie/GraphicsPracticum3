@@ -100,7 +100,7 @@ namespace Template_P3
         {
             // entry point
             Thread.CurrentThread.CurrentCulture = CultureInfo.GetCultureInfo("en-US"); // thanks Mathijs
-            using (OpenTKApp app = new OpenTKApp()) { app.Run(30.0, 0.0); }
+            using (OpenTKApp app = new OpenTKApp()) { app.Run(60.0); }
         }
     }
 } // namespace Template_P3
