@@ -66,6 +66,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Camera.cs" />
+    <Compile Include="entity.cs" />
     <Compile Include="game.cs" />
     <Compile Include="mesh.cs" />
     <Compile Include="meshLoader.cs" />

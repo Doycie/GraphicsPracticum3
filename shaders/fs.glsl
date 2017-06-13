@@ -2,11 +2,10 @@
 
 const int lightsAmount = 3;
 
-vec3 lightPos[lightsAmount] = {{5,1,5},{-5,1,5}, {5,1,-5}};
-vec4 ambient = { 0.1,0.1,0.1,1.0};
-vec4 lightColor[lightsAmount] = {{ 0.5,0.0,0.0 , 1.0},{0.0,0.5,0.0,1.0} ,{0.0,0.0,1.0,1.0}};
-float brightness = 5.0f;
- 
+uniform vec3 lightPos[lightsAmount] = {{5,1,5},{-5,1,5}, {5,1,-5}};
+uniform vec4 lightColor[lightsAmount] = {{ 0.5,0.0,0.0 , 4.0},{0.0,0.5,0.0,5.0} ,{0.0,0.0,1.0,10.0}};
+
+vec4 ambient = { 0.0,0.0,0.0,1.0}; 
 // shader input
 in vec2 uv;						// interpolated texture coordinates
 in vec4 normal;					// interpolated normal
@@ -20,21 +19,23 @@ out vec4 outputColor;
 // fragment shader
 void main()
 {
-	vec4 light = vec4(0,0,0,0);
+	vec4 light = vec4(0,0,0,1.0);
 	for(int i = 0; i < lightsAmount; i++){
 		
-		vec3 lightdir = lightPos[i] - vertex;
-	
+		vec3 lightdir = normalize(lightPos[i] - vertex);
+		
+		
+		
 		float lamb = max(dot(lightdir,normal.xyz),0.0);
-  
+		
+	  
 		vec3 viewdirection = normalize(-vertex);
 		vec3 dir = normalize(lightdir + viewdirection);
 		float specular = max(dot(dir, normal.xyz), 0.0);
 		
-		light += texture( pixels, uv ) * lightColor[i] * lamb * specular * brightness;
+		light += texture( pixels, uv ) * lightColor[i] * specular * lightColor[i].w;
+		light += texture (pixels , uv) * lightColor[i] * lamb * lightColor[i].w;
 	}
-	
-	
 	
 	
 	outputColor = clamp(light + ambient * texture(pixels,uv),0.0,1.0);

@@ -19,30 +19,18 @@ namespace Template_P3 {
 	    int triangleBufferId;					// triangle buffer
 	    int quadBufferId;                       // quad bufferz
 
-        public Matrix4 ModelMatrix; //Matrix for the modelview  
-        public Mesh parent;         //points to the parent, if it stays null it does not have a parent
+   
 
 
-        float a = 0;
+
 	    // constructor
 	    public Mesh( string fileName )
 	    {
 		    MeshLoader loader = new MeshLoader();
 		    loader.Load( this, fileName );
-            ModelMatrix = new Matrix4(new Vector4(1, 0, 0,0), new Vector4(0, 1, 0, 0), new Vector4(0, 0, 1, 0), new Vector4(0, 0, 0, 1));
+            
 	    }
-        public void SetPostition(Vector3 v)
-        {
-            ModelMatrix = Matrix4.CreateTranslation(v);
-        }
-        public void Move(Vector3 v)
-        {
-            ModelMatrix *= Matrix4.CreateTranslation(v);
-        }
-        public void Scale(Vector3 v)
-        {
-            ModelMatrix *= Matrix4.CreateScale(v);
-        }
+       
         // initialization; called during first render
         public void Prepare( Shader shader )
 	    {
@@ -86,8 +74,6 @@ namespace Template_P3 {
             normalMatrix.Transpose();
             GL.UniformMatrix4(shader.uniform_mnormal, false, ref normalMatrix);
 
-            GL.Uniform1(shader.attribute_ftime, a);
-            a += 0.01f;
 
 		    // bind interleaved vertex data
 		    GL.EnableClientState( ArrayCap.VertexArray );

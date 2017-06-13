@@ -10,7 +10,7 @@ namespace Template_P3
         // member variables
         public Surface screen;                  // background surface for printing etc.
 
-        private Mesh mesh, floor, penguin, sky, penguin2, floor2;                       // a mesh to draw using OpenGL
+        private Entity pot, floor, penguin, sky, penguin2, floor2;                       // a mesh to draw using OpenGL
         private const float PI = 3.1415926535f;         // PI
         private Stopwatch timer;                        // timer for measuring frame duration
         private Shader shader;                          // shader to use for rendering
@@ -29,17 +29,19 @@ namespace Template_P3
         public void Init()
         {
             // load teapot
-            mesh = new Mesh("../../assets/teapot.obj");
-            floor = new Mesh("../../assets/floor.obj");
-            floor2 = new Mesh("../../assets/floor.obj");
-            penguin = new Mesh("../../assets/pin.obj");
-            penguin2 = new Mesh("../../assets/pin.obj");
-            sky = new Mesh("../../assets/sky.obj");
+            pot = new Entity(new Mesh("../../assets/teapot.obj"));
+            floor = new Entity(new Mesh("../../assets/floor.obj"));
+            floor2 = new Entity(new Mesh("../../assets/floor.obj"));
+            
+            penguin = new Entity( new Mesh("../../assets/pin.obj"));
+            penguin2 = new Entity(new Mesh("../../assets/pin.obj"));
+            sky = new Entity(new Mesh("../../assets/sky.obj"));
 
             penguin.Move(new Vector3(20.0f,1.0f,1.0f));
             penguin2.Move(new Vector3(5.0f, 1.0f, 1.0f));
             sky.Scale(new Vector3(50.0f, 50.0f, 50.0f));
             floor2.Scale(new Vector3(10.0f, 10.0f, 10.0f));
+            floor2.Move(new Vector3(0, 15.0f, 0));
 
             // initialize stopwatch
             timer = new Stopwatch();
@@ -56,11 +58,11 @@ namespace Template_P3
             quad = new ScreenQuad();
 
             scenegraph = new SceneGraph();
-            scenegraph.AddMesh(floor, null);
-            scenegraph.AddMesh(mesh, floor);
-            scenegraph.AddMesh(penguin, mesh);
-            scenegraph.AddMesh(penguin2, penguin);
-            scenegraph.AddMesh(floor2, null);
+            scenegraph.AddEntity(floor, null);
+            scenegraph.AddEntity(pot, floor);
+            scenegraph.AddEntity(penguin, pot);
+            scenegraph.AddEntity(penguin2, penguin);
+            scenegraph.AddEntity(floor2, null);
 
             camera = new Camera();
         }
