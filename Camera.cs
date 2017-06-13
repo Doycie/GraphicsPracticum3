@@ -8,7 +8,7 @@ public class Camera
     float FOV;
 
     //Location of the camera.
-    Vector3 camPos;
+    public Vector3 camPos;
 
     //Angles.x is the angle of rotation around the z axis, angles.y is the rotation relative to the xy plane.
     Vector2 rotation;
@@ -48,7 +48,12 @@ public class Camera
         transform *= Matrix4.CreatePerspectiveFieldOfView(1.2f, 1.3f, .1f, 1000);
         return transform;
     }
-
+    public Matrix4 cameraModelMatrix()
+    {
+        Matrix4 transform = Matrix4.CreateTranslation(camPos);
+        transform *= rotationMatrix;
+        return transform;
+    }
     public void Input(OpenTK.Input.KeyboardState k)
     {
         if (k.IsKeyDown(OpenTK.Input.Key.W))

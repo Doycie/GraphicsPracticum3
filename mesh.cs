@@ -31,7 +31,10 @@ namespace Template_P3 {
 		    loader.Load( this, fileName );
             ModelMatrix = new Matrix4(new Vector4(1, 0, 0,0), new Vector4(0, 1, 0, 0), new Vector4(0, 0, 1, 0), new Vector4(0, 0, 0, 1));
 	    }
-
+        public void SetPostition(Vector3 v)
+        {
+            ModelMatrix = Matrix4.CreateTranslation(v);
+        }
         public void Move(Vector3 v)
         {
             ModelMatrix *= Matrix4.CreateTranslation(v);

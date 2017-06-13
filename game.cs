@@ -35,7 +35,7 @@ namespace Template_P3
             sky = new Mesh("../../assets/sky.obj");
 
             penguin.Move(new Vector3(20.0f,1.0f,1.0f));
-            sky.Scale(new Vector3(10.0f, 10.0f, 10.0f));
+            sky.Scale(new Vector3(50.0f, 50.0f, 50.0f));
 
             // initialize stopwatch
             timer = new Stopwatch();
@@ -63,13 +63,15 @@ namespace Template_P3
         public void Tick()
         {
             screen.Clear(0);
-            screen.Print("hello world", 2, 2, 0xffff00);
+           // screen.Print("hello world", 2, 2, 0xffff00);
         }
 
         public void Input(OpenTK.Input.KeyboardState k)
         {
             camera.Input(k);
             
+           // sky.SetPostition(camera.camPos);
+           // sky.Scale(new Vector3(50.0f, 50.0f, 50.0f));
         }
 
         // tick for OpenGL rendering code
@@ -84,7 +86,7 @@ namespace Template_P3
             {
                 target.Bind();
                 scenegraph.Render(camera.getCameraMatrix(), shader, wood);
-                sky.Render(shader_sky, camera.getCameraMatrix(), sky.ModelMatrix, wood);
+                //sky.Render(shader_sky, camera.getCameraMatrix(), sky.ModelMatrix * camera.cameraModelMatrix(), wood);
                 target.Unbind();
              //  int a =screen.GenTexture();
                 quad.Render(postproc,target.GetTextureID());
