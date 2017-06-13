@@ -3,8 +3,9 @@
 const int lightsAmount = 3;
 
 vec3 lightPos[lightsAmount] = {{5,1,5},{-5,1,5}, {5,1,-5}};
-vec4 ambient = { 0.8,0.8,0.8,1.0};
+vec4 ambient = { 0.1,0.1,0.1,1.0};
 vec4 lightColor[lightsAmount] = {{ 0.5,0.0,0.0 , 1.0},{0.0,0.5,0.0,1.0} ,{0.0,0.0,1.0,1.0}};
+float brightness = 5.0f;
  
 // shader input
 in vec2 uv;						// interpolated texture coordinates
@@ -30,7 +31,7 @@ void main()
 		vec3 dir = normalize(lightdir + viewdirection);
 		float specular = max(dot(dir, normal.xyz), 0.0);
 		
-		light += texture( pixels, uv ) * lightColor[i] * lamb * specular;
+		light += texture( pixels, uv ) * lightColor[i] * lamb * specular * brightness;
 	}
 	
 	
