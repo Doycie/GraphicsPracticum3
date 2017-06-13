@@ -10,7 +10,7 @@ namespace Template_P3
         // member variables
         public Surface screen;                  // background surface for printing etc.
 
-        private Mesh mesh, floor, penguin, sky;                       // a mesh to draw using OpenGL
+        private Mesh mesh, floor, penguin, sky, penguin2, floor2;                       // a mesh to draw using OpenGL
         private const float PI = 3.1415926535f;         // PI
         private Stopwatch timer;                        // timer for measuring frame duration
         private Shader shader;                          // shader to use for rendering
@@ -31,11 +31,15 @@ namespace Template_P3
             // load teapot
             mesh = new Mesh("../../assets/teapot.obj");
             floor = new Mesh("../../assets/floor.obj");
+            floor2 = new Mesh("../../assets/floor.obj");
             penguin = new Mesh("../../assets/pin.obj");
+            penguin2 = new Mesh("../../assets/pin.obj");
             sky = new Mesh("../../assets/sky.obj");
 
             penguin.Move(new Vector3(20.0f,1.0f,1.0f));
+            penguin2.Move(new Vector3(5.0f, 1.0f, 1.0f));
             sky.Scale(new Vector3(50.0f, 50.0f, 50.0f));
+            floor2.Scale(new Vector3(10.0f, 10.0f, 10.0f));
 
             // initialize stopwatch
             timer = new Stopwatch();
@@ -46,7 +50,7 @@ namespace Template_P3
             shader_sky = new Shader("../../shaders/vs_sky.glsl", "../../shaders/fs_sky.glsl");
             postproc = new Shader("../../shaders/vs_post.glsl", "../../shaders/fs_post.glsl");
             // load a texture
-            wood = new Texture("../../assets/wood.png");
+            wood = new Texture("../../assets/wood.jpg");
             // create the render target
             target = new RenderTarget(screen.width, screen.height);
             quad = new ScreenQuad();
@@ -54,7 +58,9 @@ namespace Template_P3
             scenegraph = new SceneGraph();
             scenegraph.AddMesh(floor, null);
             scenegraph.AddMesh(mesh, floor);
-            scenegraph.AddMesh(penguin, null);
+            scenegraph.AddMesh(penguin, mesh);
+            scenegraph.AddMesh(penguin2, penguin);
+            scenegraph.AddMesh(floor2, null);
 
             camera = new Camera();
         }

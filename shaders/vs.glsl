@@ -23,5 +23,5 @@ void main()
 	normal = normalmatrix * vec4( vNormal, 0.0f );
 	// forward normal and uv coordinate; will be interpolated over triangle
 	uv = vUV;
-	vertex = vec3(modelmatrix * vec4(vPosition,1.0));
+	vertex = vec3((modelmatrix * vec4(vPosition,1.0)).xyz);
 }

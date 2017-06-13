@@ -37,8 +37,12 @@ namespace Template_P3
             }
             a = 0.01f;
             if (a > 2 * PI) a -= 2 * PI;
-            meshList[2].ModelMatrix *= Matrix4.CreateRotationY(a);
+            meshList[2].ModelMatrix *= Matrix4.CreateRotationX(a);
+            meshList[1].ModelMatrix *= Matrix4.CreateRotationY(a);
+            meshList[0].ModelMatrix *= Matrix4.CreateRotationY(a);
+            meshList[3].ModelMatrix *= Matrix4.CreateRotationX(-a);
            
+
         }
     }
 }
