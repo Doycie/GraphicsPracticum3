@@ -95,7 +95,7 @@ namespace Template_P3 {
             GL.UseProgram(0);
         }
         // render the mesh using the supplied shader and matrix
-        public void Render( Shader shader, Matrix4 projMatrix, Matrix4 modelmatrix, Texture texture )
+        public void Render( Shader shader, Matrix4 projMatrix, Matrix4 modelmatrix, Texture texture, Texture cubemap)
 	    {
 		    // on first run, prepare buffers
 		    Prepare( shader );
@@ -106,8 +106,13 @@ namespace Template_P3 {
 		    GL.ActiveTexture( TextureUnit.Texture0 );
 		    GL.BindTexture( TextureTarget.Texture2D, texture.id );
 
-		    // enable shader
-		    GL.UseProgram( shader.programID );
+            int cubeLoc = GL.GetUniformLocation(shader.programID, "cubemap");
+            GL.Uniform1(cubeLoc, 1);
+            GL.ActiveTexture(TextureUnit.Texture1);
+            GL.BindTexture(TextureTarget.TextureCubeMap, cubemap.id);
+
+            // enable shader
+            GL.UseProgram( shader.programID );
 
 		    // pass transform to vertex shader
 		    GL.UniformMatrix4( shader.uniform_mview, false, ref projMatrix);
