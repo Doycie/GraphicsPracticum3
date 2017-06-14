@@ -95,7 +95,7 @@ namespace Template_P3 {
             GL.UseProgram(0);
         }
         // render the mesh using the supplied shader and matrix
-        public void Render( Shader shader, Matrix4 projMatrix, Matrix4 modelmatrix, Texture texture, Texture cubemap)
+        public void Render( Shader shader, Matrix4 projMatrix, Matrix4 modelmatrix, Texture texture, Texture cubemap, Vector3 c)
 	    {
 		    // on first run, prepare buffers
 		    Prepare( shader );
@@ -121,9 +121,12 @@ namespace Template_P3 {
             normalMatrix.Transpose();
             GL.UniformMatrix4(shader.uniform_mnormal, false, ref normalMatrix);
 
+            int campos = GL.GetUniformLocation(shader.programID, "campos");
+            GL.Uniform3( campos, c.X,c.Y,c.Z);
 
-		    // bind interleaved vertex data
-		    GL.EnableClientState( ArrayCap.VertexArray );
+
+            // bind interleaved vertex data
+            GL.EnableClientState( ArrayCap.VertexArray );
 		    GL.BindBuffer( BufferTarget.ArrayBuffer, vertexBufferId );
 		    GL.InterleavedArrays( InterleavedArrayFormat.T2fN3fV3f, Marshal.SizeOf( typeof( ObjVertex ) ), IntPtr.Zero );
 

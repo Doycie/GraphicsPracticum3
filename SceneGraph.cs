@@ -21,7 +21,7 @@ namespace Template_P3
             
         }
 
-        public void Render(Matrix4 projMatrix, Shader shader, Texture cubemap)
+        public void Render(Matrix4 projMatrix, Shader shader, Texture cubemap, Vector3 c)
         {
             a += 0.01f;
             if (a > 2 * PI) a -= 2 * PI;
@@ -42,7 +42,7 @@ namespace Template_P3
                     resultMatrix *= branch.ModelMatrix;
                 }
 
-                m.mesh.Render(shader, projMatrix, resultMatrix, m.texture, cubemap);
+                m.mesh.Render(shader, projMatrix, resultMatrix, m.texture, cubemap,  c);
             }
 
 

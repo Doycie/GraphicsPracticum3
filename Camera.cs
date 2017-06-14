@@ -40,7 +40,10 @@ public class Camera
             return matrix * Matrix4.CreateRotationX(rotation.X);
         }
     }
-
+    public Vector3 getCameraLocation()
+    {
+        return camPos;
+    }
     public Matrix4 getCameraMatrix()
     {
         Matrix4 transform = Matrix4.CreateTranslation(camPos);

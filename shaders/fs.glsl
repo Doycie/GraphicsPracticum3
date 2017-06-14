@@ -12,6 +12,7 @@ in vec4 normal;					// interpolated normal
 in vec3 vertex;
 uniform sampler2D pixels;		// texture sampler
 uniform samplerCube skybox;
+uniform vec3 campos;
 
 // shader output
 out vec4 outputColor;
@@ -37,11 +38,11 @@ void main()
 		light += texture (pixels , uv) * lightColor[i] * lamb * lightColor[i].w;
 	}
 	
-	vec3 I = normalize(-vertex);
+	vec3 I = normalize( campos + vertex);
 
-    vec3 R = reflect(I, normalize(normal).xyz);
+    vec3 R = refract(I, normalize(normal).xyz , 0.67f);
 	
-	outputColor = clamp( vec4(texture(skybox, R).xyz, 1.0) + light/2 + ambient/2 * texture(pixels,uv),0.0,1.0);
+	outputColor = clamp( vec4(texture(skybox, R).xyz, 1.0) + light/20 + ambient/20 * texture(pixels,uv),0.0,1.0);
 	
 
 	//outputColor = texture( pixels, uv ) + 0.5f * vec4( normal.xyz, 1 );

@@ -113,7 +113,7 @@ namespace Template_P3
                 cube.mesh.RenderCubeMap(shader_sky, camera.getCameraRotationMatrix(), camera.getCameraProjMatrix(), cubemap);
                 GL.DepthMask(true);
                
-                scenegraph.Render(camera.getCameraMatrix(), shader, cubemap);
+                scenegraph.Render(camera.getCameraMatrix(), shader, cubemap, camera.getCameraLocation());
                 //sky.Render(shader_sky, camera.getCameraMatrix(), sky.ModelMatrix * camera.cameraModelMatrix(), wood);
                 target.Unbind();
              //  int a =screen.GenTexture();
