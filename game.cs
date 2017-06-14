@@ -3,6 +3,7 @@ using OpenTK;
 using System.Collections.Generic;
 using System;
 using OpenTK.Graphics.OpenGL;
+using System.Collections;
 // minimal OpenTK rendering framework for UU/INFOGR
 // Jacco Bikker, 2016
 
@@ -19,6 +20,7 @@ namespace Template_P3
         private Shader shader;                          // shader to use for rendering
         private Shader postproc;                        // shader to use for post processing
         private Shader shader_sky;
+        private Shader shader_fur;
 
         private RenderTarget target;                    // intermediate render target
         private ScreenQuad quad;                        // screen filling quad for post processing
@@ -29,7 +31,12 @@ namespace Template_P3
         private Camera camera;
 
         private Texture cubemap;
+        private Texture fur;
+        List<Matrix4> ma = new List<Matrix4>(30);
+        List<Matrix4> ca = new List<Matrix4>(30);
 
+
+        float a = 0.0f;
         // initialize
         public void Init()
         {
@@ -42,6 +49,7 @@ namespace Template_P3
             a.Add("lf.png");
             cubemap = new Texture("../../assets/sky/darkskies_",  a);
              t = new Texture("../../assets/wood.jpg");
+            fur = new Texture("../../assets/fur.png");
             // load teapot
             pot = new Entity(new Mesh("../../assets/teapot.obj"),t);
             floor = new Entity(new Mesh("../../assets/floor.obj"),t);
@@ -49,9 +57,9 @@ namespace Template_P3
             penguin = new Entity( new Mesh("../../assets/pin.obj"),t);
             penguin2 = new Entity(new Mesh("../../assets/pin.obj"),t);
             penguin.Move(new Vector3(20.0f,1.0f,1.0f));
-            penguin2.Move(new Vector3(5.0f, 1.0f, 1.0f));
+            penguin2.Move(new Vector3(5.0f, 1.0f, 5.0f));
             floor2.Scale(new Vector3(10.0f, 10.0f, 10.0f));
-            floor2.Move(new Vector3(0, 15.0f, 0));
+            floor2.Move(new Vector3(0, 0.0f, 0));
 
             t = new Texture("../../assets/cube.png");
             cube = new Entity(new Mesh("../../assets/cube1.obj"),t);
@@ -65,6 +73,7 @@ namespace Template_P3
             shader = new Shader("../../shaders/vs.glsl", "../../shaders/fs.glsl");
             shader_sky = new Shader("../../shaders/vs_sky.glsl", "../../shaders/fs_sky.glsl");
             postproc = new Shader("../../shaders/vs_post.glsl", "../../shaders/fs_post.glsl");
+            shader_fur = new Shader("../../shaders/vs_fur.glsl", "../../shaders/fs_fur.glsl");
 
             // create the render target
             target = new RenderTarget(screen.width, screen.height);
@@ -74,11 +83,17 @@ namespace Template_P3
             scenegraph.AddEntity(floor, null);
             scenegraph.AddEntity(pot, floor);
             scenegraph.AddEntity(penguin, pot);
-            scenegraph.AddEntity(penguin2, penguin);
+            scenegraph.AddEntity(penguin2, null);
             scenegraph.AddEntity(floor2, null);
    
 
             camera = new Camera();
+
+            for(int  i = 0; i < 30; i++)
+            {
+                ca.Add(Matrix4.Identity);
+                ma.Add(Matrix4.Identity);
+            }
         }
 
         // tick for background surface
@@ -112,8 +127,22 @@ namespace Template_P3
                 //Matrix4 view = new Matrix4(new Matrix3(camera.getCameraModelMatrix()));
                 cube.mesh.RenderCubeMap(shader_sky, camera.getCameraRotationMatrix(), camera.getCameraProjMatrix(), cubemap);
                 GL.DepthMask(true);
-               
-                scenegraph.Render(camera.getCameraMatrix(), shader, cubemap, camera.getCameraLocation());
+
+                ca.RemoveAt(0);
+                ma.RemoveAt(0);
+                //scenegraph.Render(camera.getCameraMatrix(), shader, cubemap, camera.getCameraLocation());
+                Matrix4 m = pot.ModelMatrix + Matrix4.CreateTranslation(new Vector3(0,(float)Math.Sin(a) * 10.0f,0));
+                a += 0.1f;
+                for (int i = 0; i < 30; i++)
+                {
+                 
+                    pot.mesh.RenderFur(shader_fur, ca[19 - i/4], ma[19 - i/4],fur,cubemap, camera.getCameraLocation(), i);
+                }
+                ca.Insert(29,camera.getCameraMatrix());
+                ma.Insert(29, m);
+                
+
+
                 //sky.Render(shader_sky, camera.getCameraMatrix(), sky.ModelMatrix * camera.cameraModelMatrix(), wood);
                 target.Unbind();
              //  int a =screen.GenTexture();

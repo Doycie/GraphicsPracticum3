@@ -13,15 +13,17 @@ out vec4 normal;			// transformed vertex normal
 out vec2 uv;
 out vec3 vertex;			
 
+uniform float shellOffset;
  
 // vertex shader
 void main()
 {
 	// transform vertex using supplied matrices
-	gl_Position = projmatrix * modelmatrix * vec4(vPosition, 1.0) ;
+	gl_Position = projmatrix * modelmatrix * vec4(vPosition + shellOffset *vNormal, 1.0) ;
 	
 	normal = normalmatrix * vec4( vNormal, 0.0f );
 	// forward normal and uv coordinate; will be interpolated over triangle
 	uv = vUV;
 	vertex = vec3((modelmatrix * vec4(vPosition,1.0)));
+
 }

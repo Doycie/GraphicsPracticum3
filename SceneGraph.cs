@@ -26,9 +26,9 @@ namespace Template_P3
             a += 0.01f;
             if (a > 2 * PI) a -= 2 * PI;
             entityList[2].rotation = new Vector3(a, 0, 0);
-            entityList[1].rotation = new Vector3(0, a, 0);
-            entityList[0].rotation = new Vector3(0, a, 0);
-            entityList[3].rotation = new Vector3(-a, 0, 0);
+           // entityList[1].rotation = new Vector3(0, a, 0);
+           // entityList[0].rotation = new Vector3(0, a, 0);
+           // entityList[3].rotation = new Vector3(-a, 0, 0);
 
 
             foreach (Entity m in entityList)
