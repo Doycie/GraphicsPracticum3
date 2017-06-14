@@ -1,5 +1,8 @@
 ﻿using System.Diagnostics;
 using OpenTK;
+using System.Collections.Generic;
+using System;
+using OpenTK.Graphics.OpenGL;
 // minimal OpenTK rendering framework for UU/INFOGR
 // Jacco Bikker, 2016
 
@@ -10,7 +13,7 @@ namespace Template_P3
         // member variables
         public Surface screen;                  // background surface for printing etc.
 
-        private Entity pot, floor, penguin, sky, penguin2, floor2, cube;                       // a mesh to draw using OpenGL
+        private Entity pot, floor, penguin, penguin2, floor2, cube;                       // a mesh to draw using OpenGL
         private const float PI = 3.1415926535f;         // PI
         private Stopwatch timer;                        // timer for measuring frame duration
         private Shader shader;                          // shader to use for rendering
@@ -22,13 +25,23 @@ namespace Template_P3
         private bool useRenderTarget = true;
 
         private SceneGraph scenegraph;
-
+        private Texture t;
         private Camera camera;
+
+        private Texture cubemap;
 
         // initialize
         public void Init()
         {
-            Texture t = new Texture("../../assets/wood.jpg");
+            List<String> a = new List<string>();
+            a.Add("ft.png");
+            a.Add("bk.png");
+            a.Add("up.png");
+            a.Add("dn.png");
+            a.Add("rt.png");
+            a.Add("lf.png");
+            cubemap = new Texture("../../assets/sky/darkskies_",  a);
+             t = new Texture("../../assets/wood.jpg");
             // load teapot
             pot = new Entity(new Mesh("../../assets/teapot.obj"),t);
             floor = new Entity(new Mesh("../../assets/floor.obj"),t);
@@ -41,7 +54,7 @@ namespace Template_P3
             floor2.Move(new Vector3(0, 15.0f, 0));
 
             t = new Texture("../../assets/cube.png");
-            cube = new Entity(new Mesh("../../assets/cube.obj"),t);
+            cube = new Entity(new Mesh("../../assets/cube1.obj"),t);
             cube.Move(new Vector3(20.0f, 5.0f, 5.0f));
 
             // initialize stopwatch
@@ -63,7 +76,7 @@ namespace Template_P3
             scenegraph.AddEntity(penguin, pot);
             scenegraph.AddEntity(penguin2, penguin);
             scenegraph.AddEntity(floor2, null);
-            scenegraph.AddEntity(cube, null);
+   
 
             camera = new Camera();
         }
@@ -94,6 +107,12 @@ namespace Template_P3
             if (useRenderTarget)
             {
                 target.Bind();
+
+                GL.DepthMask(false);
+                //Matrix4 view = new Matrix4(new Matrix3(camera.getCameraModelMatrix()));
+                cube.mesh.RenderCubeMap(shader_sky, camera.getCameraRotationMatrix(), camera.getCameraProjMatrix(), cubemap);
+                GL.DepthMask(true);
+               
                 scenegraph.Render(camera.getCameraMatrix(), shader);
                 //sky.Render(shader_sky, camera.getCameraMatrix(), sky.ModelMatrix * camera.cameraModelMatrix(), wood);
                 target.Unbind();

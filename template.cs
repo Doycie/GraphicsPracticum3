@@ -18,6 +18,7 @@ namespace Template_P3
             // called upon app init
             GL.ClearColor(Color.Black);
             GL.Enable(EnableCap.Texture2D);
+            GL.Enable(EnableCap.TextureCubeMap);
             GL.Disable(EnableCap.DepthTest);
             GL.Enable(EnableCap.Blend);
             GL.BlendFunc(BlendingFactorSrc.SrcAlpha, BlendingFactorDest.OneMinusSrcAlpha);

@@ -2,6 +2,7 @@
 using System.Drawing;
 using System.Drawing.Imaging;
 using OpenTK.Graphics.OpenGL;
+using System.Collections.Generic;
 
 namespace Template_P3 {
 
@@ -26,6 +27,33 @@ public class Texture
  		GL.TexImage2D( TextureTarget.Texture2D, 0, PixelInternalFormat.Rgba, bmp_data.Width, bmp_data.Height, 0, OpenTK.Graphics.OpenGL.PixelFormat.Bgra, PixelType.UnsignedByte, bmp_data.Scan0 );
 		bmp.UnlockBits( bmp_data );
 	}
-}
+
+        public Texture(string filename,  List<String> a)
+        {
+            if (String.IsNullOrEmpty(filename)) throw new ArgumentException(filename);
+            id = GL.GenTexture();
+            GL.BindTexture(TextureTarget.TextureCubeMap, id);
+
+            GL.TexParameter(TextureTarget.TextureCubeMap, TextureParameterName.TextureMinFilter, (int)TextureMinFilter.Linear);
+            GL.TexParameter(TextureTarget.TextureCubeMap, TextureParameterName.TextureMagFilter, (int)TextureMinFilter.Linear);
+            GL.TexParameter(TextureTarget.TextureCubeMap, TextureParameterName.TextureWrapS, (int)TextureWrapMode.ClampToEdge);
+            GL.TexParameter(TextureTarget.TextureCubeMap, TextureParameterName.TextureWrapT, (int)TextureWrapMode.ClampToEdge);
+            GL.TexParameter(TextureTarget.TextureCubeMap, TextureParameterName.TextureWrapR, (int)TextureWrapMode.ClampToEdge);
+
+            for ( int i = 0; i < a.Count ; i++)
+            {
+                String b;
+                b = filename;
+                b += a[i];
+               
+                Bitmap bmp = new Bitmap(b);
+                BitmapData bmp_data = bmp.LockBits(new Rectangle(0, 0, bmp.Width, bmp.Height), ImageLockMode.ReadOnly, System.Drawing.Imaging.PixelFormat.Format32bppArgb);
+                GL.TexImage2D(TextureTarget.TextureCubeMapPositiveX +i, 0, PixelInternalFormat.Rgba, bmp_data.Width, bmp_data.Height, 0, OpenTK.Graphics.OpenGL.PixelFormat.Bgra, PixelType.UnsignedByte, bmp_data.Scan0);
+
+                bmp.UnlockBits(bmp_data);
+            }
+        }
+
+    }
 
 } // namespace Template_P3

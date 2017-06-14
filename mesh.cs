@@ -51,9 +51,51 @@ namespace Template_P3 {
 		    GL.BindBuffer( BufferTarget.ElementArrayBuffer, quadBufferId );
 		    GL.BufferData( BufferTarget.ElementArrayBuffer, (IntPtr)(quads.Length * Marshal.SizeOf( typeof( ObjQuad ) )), quads, BufferUsageHint.StaticDraw );
 	    }
+        public void RenderCubeMap(Shader shader, Matrix4 projMatrix, Matrix4 modelmatrix, Texture texture)
+        {
+            // on first run, prepare buffers
+            Prepare(shader);
 
-	    // render the mesh using the supplied shader and matrix
-	    public void Render( Shader shader, Matrix4 projMatrix, Matrix4 modelmatrix, Texture texture )
+            // enable texture
+            int texLoc = GL.GetUniformLocation(shader.programID, "TexCube");
+            GL.Uniform1(texLoc, 0);
+            GL.ActiveTexture(TextureUnit.Texture0 );
+            GL.BindTexture(TextureTarget.TextureCubeMap, texture.id);
+
+            // enable shader
+            GL.UseProgram(shader.programID);
+
+            // pass transform to vertex shader
+            GL.UniformMatrix4(shader.uniform_mview, false, ref projMatrix);
+            GL.UniformMatrix4(shader.uniform_model, false, ref modelmatrix);
+          
+            // bind interleaved vertex data
+            GL.EnableClientState(ArrayCap.VertexArray);
+            GL.BindBuffer(BufferTarget.ArrayBuffer, vertexBufferId);
+            GL.InterleavedArrays(InterleavedArrayFormat.T2fN3fV3f, Marshal.SizeOf(typeof(ObjVertex)), IntPtr.Zero);
+
+            // link vertex attributes to shader parameters 
+            GL.VertexAttribPointer(shader.attribute_vpos, 3, VertexAttribPointerType.Float, false, 32, 5 * 4);
+
+            // enable position, normal and uv attributes
+            GL.EnableVertexAttribArray(shader.attribute_vpos);
+
+            // bind triangle index data and render
+            GL.BindBuffer(BufferTarget.ElementArrayBuffer, triangleBufferId);
+            GL.DrawArrays(PrimitiveType.Triangles, 0, triangles.Length * 3);
+
+            // bind quad index data and render
+            if (quads.Length > 0)
+            {
+                GL.BindBuffer(BufferTarget.ElementArrayBuffer, quadBufferId);
+                GL.DrawArrays(PrimitiveType.Quads, 0, quads.Length * 4);
+            }
+
+            // restore previous OpenGL state
+            GL.UseProgram(0);
+        }
+        // render the mesh using the supplied shader and matrix
+        public void Render( Shader shader, Matrix4 projMatrix, Matrix4 modelmatrix, Texture texture )
 	    {
 		    // on first run, prepare buffers
 		    Prepare( shader );

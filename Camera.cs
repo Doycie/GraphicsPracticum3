@@ -48,11 +48,20 @@ public class Camera
         transform *= Matrix4.CreatePerspectiveFieldOfView(1.2f, 1.3f, .1f, 1000);
         return transform;
     }
-
-    public Matrix4 cameraModelMatrix()
+    public Matrix4 getCameraRotationMatrix()
+    {
+        Matrix4 matrix = Matrix4.CreateRotationY(rotation.Y);
+        return matrix * Matrix4.CreateRotationX(rotation.X);
+    }
+    public Matrix4 getCameraModelMatrix()
     {
         Matrix4 transform = Matrix4.CreateTranslation(camPos);
         transform *= rotationMatrix;
+        return transform;
+    }
+    public Matrix4 getCameraProjMatrix()
+    {
+        Matrix4 transform = Matrix4.CreatePerspectiveFieldOfView(1.2f, 1.3f, .1f, 1000);
         return transform;
     }
 
