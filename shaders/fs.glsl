@@ -41,7 +41,7 @@ void main()
 
     vec3 R = reflect(I, normalize(normal).xyz);
 	
-	outputColor = clamp( vec4(texture(skybox, R).rgb, 1.0) + light + ambient * texture(pixels,uv),0.0,1.0);
+	outputColor = clamp( vec4(texture(skybox, R).xyz, 1.0) + light/2 + ambient/2 * texture(pixels,uv),0.0,1.0);
 	
 
 	//outputColor = texture( pixels, uv ) + 0.5f * vec4( normal.xyz, 1 );
