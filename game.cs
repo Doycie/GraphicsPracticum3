@@ -11,6 +11,8 @@ namespace Template_P3
 {
     internal class Game
     {
+        float time = 0;
+
         // member variables
         public Surface screen;                  // background surface for printing etc.
 
@@ -54,7 +56,7 @@ namespace Template_P3
 
             // create shaders
             shader = new Shader("../../shaders/vs.glsl", "../../shaders/fs.glsl");
-            shader_sky = new Shader("../../shaders/vs_sky.glsl", "../../shaders/fs_sky.glsl");
+            shader_sky = new Shader("../../shaders/vs_cloud.glsl", "../../shaders/fs_cloud.glsl");
             postproc = new Shader("../../shaders/vs_post.glsl", "../../shaders/fs_post.glsl");
             shader_fur = new Shader("../../shaders/vs_fur.glsl", "../../shaders/fs_fur.glsl");
 
@@ -101,7 +103,10 @@ namespace Template_P3
         public void Tick()
         {
             screen.Clear(0);
-           // screen.Print("hello world", 2, 2, 0xffff00);
+            // screen.Print("hello world", 2, 2, 0xffff00);
+
+            time += 0.001f;
+            GL.ProgramUniform1(shader_sky.programID, shader_sky.attribute_ftime, time);
         }
 
         public void Input(OpenTK.Input.KeyboardState k)

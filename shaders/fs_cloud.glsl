@@ -3,12 +3,10 @@
 in vec3 vertex;
 in float vtime;
 
-
 // shader output
 out vec4 outputColor;
 
-
-
+const float PI = 3.141592653;
 
  float Noise(int x, int y)
     {
@@ -75,14 +73,10 @@ float amplitude = 4.0;
 
 void main()
 {
+	vec3 n = normalize(vertex);
 	
-	vec3 q = vec3(vertex.x + vtime * 100 , vertex.yz);
-	vec3 n = normalize(q);
-	
-	vec2 v = vec2( atan(n.x, n.z) / (2*3.1412) + 0.5,  n.y * 0.5 + 0.5);
-	
-	
-	
+	vec2 v = vec2((acos(n.z) + PI + vtime), atan(n.y / n.x) + PI);
+		
 	float total = 0;
 	float frequency = 25;
 
