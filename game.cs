@@ -31,9 +31,12 @@ namespace Template_P3
         private Camera camera;
 
         private Texture cubemap;
+
+        const int furmatrices = 10;
         private Texture fur;
-        List<Matrix4> ma = new List<Matrix4>(30);
-        List<Matrix4> ca = new List<Matrix4>(30);
+        Matrix4[] ma = new Matrix4[furmatrices];
+        Matrix4[] ca = new Matrix4[furmatrices];
+        int matrixcounter = 0;
 
 
         float a = 0.0f;
@@ -61,7 +64,7 @@ namespace Template_P3
             floor2.Scale(new Vector3(10.0f, 10.0f, 10.0f));
             floor2.Move(new Vector3(0, 0.0f, 0));
 
-            t = new Texture("../../assets/cube.png");
+            //t = new Texture("../../assets/cube.png");
             cube = new Entity(new Mesh("../../assets/cube1.obj"),t);
             cube.Move(new Vector3(20.0f, 5.0f, 5.0f));
 
@@ -89,10 +92,10 @@ namespace Template_P3
 
             camera = new Camera();
 
-            for(int  i = 0; i < 30; i++)
+            for(int  i = 0; i < furmatrices; i++)
             {
-                ca.Add(Matrix4.Identity);
-                ma.Add(Matrix4.Identity);
+                ca[i] = (Matrix4.Identity);
+                ma[i] = (Matrix4.Identity);
             }
         }
 
@@ -128,19 +131,27 @@ namespace Template_P3
                 cube.mesh.RenderCubeMap(shader_sky, camera.getCameraRotationMatrix(), camera.getCameraProjMatrix(), cubemap);
                 GL.DepthMask(true);
 
-                ca.RemoveAt(0);
-                ma.RemoveAt(0);
-                //scenegraph.Render(camera.getCameraMatrix(), shader, cubemap, camera.getCameraLocation());
+          
+                scenegraph.Render(camera.getCameraMatrix(), shader, cubemap, camera.getCameraLocation());
                 Matrix4 m = pot.ModelMatrix + Matrix4.CreateTranslation(new Vector3(0,(float)Math.Sin(a) * 10.0f,0));
                 a += 0.1f;
-                for (int i = 0; i < 30; i++)
+                pot.mesh.Render(shader, camera.getCameraMatrix(), m, t, cubemap, camera.getCameraLocation());
+                for (int i = 0; i < furmatrices; i++)
                 {
-                 
-                    pot.mesh.RenderFur(shader_fur, ca[19 - i/4], ma[19 - i/4],fur,cubemap, camera.getCameraLocation(), i);
+                    int j = i + matrixcounter;
+                    if(j >= furmatrices)
+                    {
+                        j -= furmatrices;
+                    }
+                    pot.mesh.RenderFur(shader_fur, ca[ j], ma[ j],fur,cubemap, camera.getCameraLocation(), i);
                 }
-                ca.Insert(29,camera.getCameraMatrix());
-                ma.Insert(29, m);
-                
+                ca[matrixcounter] = camera.getCameraMatrix();
+                ma[matrixcounter] =  m;
+                matrixcounter++;
+                if(matrixcounter >= furmatrices)
+                {
+                    matrixcounter = 0;
+                }
 
 
                 //sky.Render(shader_sky, camera.getCameraMatrix(), sky.ModelMatrix * camera.cameraModelMatrix(), wood);

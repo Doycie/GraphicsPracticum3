@@ -185,7 +185,7 @@ namespace Template_P3 {
             GL.Uniform3(campos, c.X, c.Y, c.Z);
 
             int offsetID = GL.GetUniformLocation(shader.programID, "shellOffset");
-            GL.Uniform1(offsetID,  offset * 0.02f);
+            GL.Uniform1(offsetID,  offset * 0.04f);
 
             // bind interleaved vertex data
             GL.EnableClientState(ArrayCap.VertexArray);
