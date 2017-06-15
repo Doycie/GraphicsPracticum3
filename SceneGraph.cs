@@ -1,7 +1,7 @@
 ﻿using OpenTK;
 using OpenTK.Graphics.ES20;
 using System.Collections.Generic;
-
+using System;
 namespace Template_P3
 {
     public class SceneGraph
@@ -27,7 +27,7 @@ namespace Template_P3
             a += 0.01f;
             if (a > 2 * PI) a -= 2 * PI;
             entityList[2].Rotate(new Vector3(a, 0, 0));
-            entityList[0].Rotate(new Vector3(0, a, 0));
+            entityList[0].Rotate(new Vector3(0, (float)Math.Sin(a), 0));
 
             foreach (Entity m in entityList)
             {

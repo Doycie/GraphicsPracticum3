@@ -52,7 +52,7 @@ namespace Template_P3
             a.Add("lf.png");
             skyboxtex = new Texture("../../assets/sky/darkskies_",  a);
             woodtex = new Texture("../../assets/wood.jpg");
-            Texture furtex = new Texture("../../assets/fur.png");
+            Texture furtex = new Texture("../../assets/fur2.png");
 
             // create shaders
             shader = new Shader("../../shaders/vs.glsl", "../../shaders/fs.glsl");

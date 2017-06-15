@@ -4,7 +4,7 @@ using Template_P3;
 
 public class EntityFur : Entity
 {
-    private const int furmatrices = 20;
+    private const int furmatrices = 5;
     private float a = 0;
     private Matrix4[] ma = new Matrix4[furmatrices];
 
@@ -25,14 +25,14 @@ public class EntityFur : Entity
       
         a += 0.1f;
 
-        for (int i = 0; i < furmatrices; i++)
+        for (int i = 0; i < furmatrices * 4; i++)
         {
-            int j = i + matrixcounter;
-            if (j >= furmatrices)
+            int j =  matrixcounter - i/4 - 1;
+            if (j < 0)
             {
-                j -= furmatrices;
+                j += furmatrices ;
             }
-            mesh.RenderFur(shader, proj, ma[j], texture, i * 0.04f);
+            mesh.RenderFur(shader, proj, ma[j ], texture, i * 0.04f);
         }
         ma[matrixcounter] = m;
         matrixcounter++;
