@@ -96,14 +96,21 @@
     <Compile Include="Utility.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="OpenTK.dll.config" />
     <None Include="packages.config" />
     <None Include="shaders\fs.glsl" />
+    <None Include="shaders\fs_cloud.glsl" />
+    <None Include="shaders\fs_fur.glsl" />
     <None Include="shaders\fs_post.glsl" />
+    <None Include="shaders\fs_sky.glsl" />
     <None Include="shaders\vs.glsl" />
+    <None Include="shaders\vs_cloud.glsl" />
+    <None Include="shaders\vs_fur.glsl" />
     <None Include="shaders\vs_post.glsl" />
-    <None Include="template_P3_TemporaryKey.pfx" />
+    <None Include="shaders\vs_sky.glsl" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
