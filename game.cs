@@ -14,7 +14,7 @@ namespace Template_P3
         // member variables
         public Surface screen;                  // background surface for printing etc.
 
-        private Entity pot, floor, penguin, penguin2, floor2, cube;                       // a mesh to draw using OpenGL
+        private Entity pot, floor, penguin, penguin2, floor2;                  // a mesh to draw using OpenGL
         private const float PI = 3.1415926535f;         // PI
         private Stopwatch timer;                        // timer for measuring frame duration
         private Shader shader;                          // shader to use for rendering
@@ -27,22 +27,20 @@ namespace Template_P3
         private bool useRenderTarget = true;
 
         private SceneGraph scenegraph;
-        private Texture t;
         private Camera camera;
 
-        private Texture cubemap;
+        private Texture woodtex;
+        private Texture skyboxtex;
 
-        const int furmatrices = 10;
-        private Texture fur;
-        Matrix4[] ma = new Matrix4[furmatrices];
-        Matrix4[] ca = new Matrix4[furmatrices];
-        int matrixcounter = 0;
+        private Mesh skyboxmesh;
+
 
 
         float a = 0.0f;
         // initialize
         public void Init()
         {
+            //load textures
             List<String> a = new List<string>();
             a.Add("ft.png");
             a.Add("bk.png");
@@ -50,53 +48,53 @@ namespace Template_P3
             a.Add("dn.png");
             a.Add("rt.png");
             a.Add("lf.png");
-            cubemap = new Texture("../../assets/sky/darkskies_",  a);
-             t = new Texture("../../assets/wood.jpg");
-            fur = new Texture("../../assets/fur.png");
-            // load teapot
-            pot = new Entity(new Mesh("../../assets/teapot.obj"),t);
-            floor = new Entity(new Mesh("../../assets/floor.obj"),t);
-            floor2 = new Entity(new Mesh("../../assets/floor.obj"),t);
-            penguin = new Entity( new Mesh("../../assets/pin.obj"),t);
-            penguin2 = new Entity(new Mesh("../../assets/pin.obj"),t);
-            penguin.Move(new Vector3(20.0f,1.0f,1.0f));
-            penguin2.Move(new Vector3(5.0f, 1.0f, 5.0f));
-            floor2.Scale(new Vector3(10.0f, 10.0f, 10.0f));
-            floor2.Move(new Vector3(0, 0.0f, 0));
+            skyboxtex = new Texture("../../assets/sky/darkskies_",  a);
+            woodtex = new Texture("../../assets/wood.jpg");
+            Texture furtex = new Texture("../../assets/fur.png");
 
-            //t = new Texture("../../assets/cube.png");
-            cube = new Entity(new Mesh("../../assets/cube1.obj"),t);
-            cube.Move(new Vector3(20.0f, 5.0f, 5.0f));
-
-            // initialize stopwatch
-            timer = new Stopwatch();
-            timer.Reset();
-            timer.Start();
             // create shaders
             shader = new Shader("../../shaders/vs.glsl", "../../shaders/fs.glsl");
             shader_sky = new Shader("../../shaders/vs_sky.glsl", "../../shaders/fs_sky.glsl");
             postproc = new Shader("../../shaders/vs_post.glsl", "../../shaders/fs_post.glsl");
             shader_fur = new Shader("../../shaders/vs_fur.glsl", "../../shaders/fs_fur.glsl");
 
-            // create the render target
-            target = new RenderTarget(screen.width, screen.height);
-            quad = new ScreenQuad();
+            // load entities
+            pot = new EntityFur(new Mesh("../../assets/teapot.obj"),shader_fur,furtex);
+            floor = new EntityFur(new Mesh("../../assets/floor.obj"), shader_fur, furtex);
+            floor2 = new EntitySkyReflect(new Mesh("../../assets/floor.obj"), shader, woodtex, skyboxtex);
+            penguin = new EntitySkyReflect( new Mesh("../../assets/pin.obj"), shader, woodtex, skyboxtex);
+            penguin2 = new EntitySkyReflect(new Mesh("../../assets/pin.obj"), shader, woodtex, skyboxtex);
 
+            //Move and scale entities
+            penguin.Move(new Vector3(20.0f, 1.0f, 1.0f));
+            penguin2.Move(new Vector3(5.0f, 1.0f, 5.0f));
+            floor2.Scale(new Vector3(10.0f, 10.0f, 10.0f));
+            floor2.Move(new Vector3(0, 0.0f, 0));
+
+            //Add them to scenegraph
             scenegraph = new SceneGraph();
             scenegraph.AddEntity(floor, null);
             scenegraph.AddEntity(pot, floor);
             scenegraph.AddEntity(penguin, pot);
             scenegraph.AddEntity(penguin2, null);
             scenegraph.AddEntity(floor2, null);
-   
+
+            //Load skybox
+            skyboxmesh = new Mesh("../../assets/cube1.obj");
+
+            // initialize stopwatch
+            timer = new Stopwatch();
+            timer.Reset();
+            timer.Start();
+
+
+            // create the render target
+            target = new RenderTarget(screen.width, screen.height);
+            quad = new ScreenQuad();
 
             camera = new Camera();
 
-            for(int  i = 0; i < furmatrices; i++)
-            {
-                ca[i] = (Matrix4.Identity);
-                ma[i] = (Matrix4.Identity);
-            }
+
         }
 
         // tick for background surface
@@ -109,9 +107,6 @@ namespace Template_P3
         public void Input(OpenTK.Input.KeyboardState k)
         {
             camera.Input(k);
-            
-           // sky.SetPostition(camera.camPos);
-           // sky.Scale(new Vector3(50.0f, 50.0f, 50.0f));
         }
 
         // tick for OpenGL rendering code
@@ -126,37 +121,16 @@ namespace Template_P3
             {
                 target.Bind();
 
-                GL.DepthMask(false);
-                //Matrix4 view = new Matrix4(new Matrix3(camera.getCameraModelMatrix()));
-                cube.mesh.RenderCubeMap(shader_sky, camera.getCameraRotationMatrix(), camera.getCameraProjMatrix(), cubemap);
+                //render skybox
+                GL.DepthMask(false);       
+                skyboxmesh.RenderCubeMap(shader_sky, camera.getCameraRotationMatrix(), camera.getCameraProjMatrix(), skyboxtex);
                 GL.DepthMask(true);
 
-          
-                scenegraph.Render(camera.getCameraMatrix(), shader, cubemap, camera.getCameraLocation());
-                Matrix4 m = pot.ModelMatrix + Matrix4.CreateTranslation(new Vector3(0,(float)Math.Sin(a) * 10.0f,0));
-                a += 0.1f;
-                pot.mesh.Render(shader, camera.getCameraMatrix(), m, t, cubemap, camera.getCameraLocation());
-                for (int i = 0; i < furmatrices; i++)
-                {
-                    int j = i + matrixcounter;
-                    if(j >= furmatrices)
-                    {
-                        j -= furmatrices;
-                    }
-                    pot.mesh.RenderFur(shader_fur, ca[ j], ma[ j],fur,cubemap, camera.getCameraLocation(), i);
-                }
-                ca[matrixcounter] = camera.getCameraMatrix();
-                ma[matrixcounter] =  m;
-                matrixcounter++;
-                if(matrixcounter >= furmatrices)
-                {
-                    matrixcounter = 0;
-                }
-
-
-                //sky.Render(shader_sky, camera.getCameraMatrix(), sky.ModelMatrix * camera.cameraModelMatrix(), wood);
+                //render scenegraph
+                scenegraph.Render(camera.getCameraMatrix(), shader, skyboxtex, camera.getCameraLocation());
+        
+               
                 target.Unbind();
-             //  int a =screen.GenTexture();
                 quad.Render(postproc,target.GetTextureID());
             }
        

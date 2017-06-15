@@ -155,7 +155,7 @@ namespace Template_P3 {
 		    GL.UseProgram( 0 );
 	    }
 
-        public void RenderFur(Shader shader, Matrix4 projMatrix, Matrix4 modelmatrix, Texture texture, Texture cubemap, Vector3 c, float offset)
+        public void RenderFur(Shader shader, Matrix4 projMatrix, Matrix4 modelmatrix, Texture texture, float offset)
         {
             // on first run, prepare buffers
             Prepare(shader);
@@ -164,12 +164,7 @@ namespace Template_P3 {
             int texLoc = GL.GetUniformLocation(shader.programID, "pixels");
             GL.Uniform1(texLoc, 0);
             GL.ActiveTexture(TextureUnit.Texture0);
-            GL.BindTexture(TextureTarget.Texture2D, texture.id);
-
-            int cubeLoc = GL.GetUniformLocation(shader.programID, "cubemap");
-            GL.Uniform1(cubeLoc, 1);
-            GL.ActiveTexture(TextureUnit.Texture1);
-            GL.BindTexture(TextureTarget.TextureCubeMap, cubemap.id);
+            GL.BindTexture(TextureTarget.Texture2D, texture.id); 
 
             // enable shader
             GL.UseProgram(shader.programID);
@@ -181,11 +176,8 @@ namespace Template_P3 {
             normalMatrix.Transpose();
             GL.UniformMatrix4(shader.uniform_mnormal, false, ref normalMatrix);
 
-            int campos = GL.GetUniformLocation(shader.programID, "campos");
-            GL.Uniform3(campos, c.X, c.Y, c.Z);
-
             int offsetID = GL.GetUniformLocation(shader.programID, "shellOffset");
-            GL.Uniform1(offsetID,  offset * 0.04f);
+            GL.Uniform1(offsetID,  offset );
 
             // bind interleaved vertex data
             GL.EnableClientState(ArrayCap.VertexArray);

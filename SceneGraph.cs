@@ -25,25 +25,25 @@ namespace Template_P3
         {
             a += 0.01f;
             if (a > 2 * PI) a -= 2 * PI;
-            entityList[2].rotation = new Vector3(a, 0, 0);
-           // entityList[1].rotation = new Vector3(0, a, 0);
-           // entityList[0].rotation = new Vector3(0, a, 0);
-           // entityList[3].rotation = new Vector3(-a, 0, 0);
-
+            entityList[2].Rotate(new Vector3(a, 0, 0));
+            entityList[0].Rotate(new Vector3(0, a, 0));
 
             foreach (Entity m in entityList)
             {
                 Matrix4 resultMatrix = m.ModelMatrix;
 
                 Entity branch = m;    //follows the hierarchy
-                while (branch.parent != null)    //while it has a parent
+                while (branch.Parent != null)    //while it has a parent
                 {
-                    branch = branch.parent;
+                    branch = branch.Parent;
                     resultMatrix *= branch.ModelMatrix;
                 }
-
-                m.mesh.Render(shader, projMatrix, resultMatrix, m.texture, cubemap,  c);
+                if (m is EntitySkyReflect)
+                    (m as EntitySkyReflect).Render(projMatrix, resultMatrix, c);
+                else if (m is EntityFur)
+                    (m as EntityFur).Render(projMatrix, resultMatrix);
             }
+
 
 
         }

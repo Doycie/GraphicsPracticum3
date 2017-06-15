@@ -80,6 +80,8 @@
   <ItemGroup>
     <Compile Include="Camera.cs" />
     <Compile Include="entity.cs" />
+    <Compile Include="EntityFur.cs" />
+    <Compile Include="EntitySkyReflect.cs" />
     <Compile Include="game.cs" />
     <Compile Include="mesh.cs" />
     <Compile Include="meshLoader.cs" />
