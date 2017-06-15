@@ -2,7 +2,7 @@
 
 const int lightsAmount = 4;
 
-uniform vec3 lightPos[lightsAmount] = {ved3(5,1,5),vec3(-5,1,5), vec3(5,1,-5), vec(-5,1,-5)};
+uniform vec3 lightPos[lightsAmount] = {vec3(5,1,5),vec3(-5,1,5), vec3(5,1,-5), vec3(-5,1,-5)};
 uniform vec4 lightColor[lightsAmount] = {vec4(0.5,0.0,0.0 , 40.0),vec4(0.0,0.5,0.0,50.0) ,vec4(0.0,0.0,1.0,20.0), vec4(1.0,1.0,1.0,10.0)};
 
 vec3 ambient = vec3(0.3,0.3,0.3); 
