@@ -20,5 +20,4 @@ void main()
 	// forward normal and uv coordinate; will be interpolated over triangle
 	vtime = time;
 	vertex = vPosition;
-	
 }

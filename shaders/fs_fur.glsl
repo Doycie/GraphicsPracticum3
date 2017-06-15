@@ -1,7 +1,7 @@
 ﻿#version 330
 
 
-vec3 ambient = { 1,1,1}; 
+vec3 ambient = vec3(1,1,1); 
 // shader input
 in vec2 uv;						// interpolated texture coordinates
 in vec4 normal;					// interpolated normal
