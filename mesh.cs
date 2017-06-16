@@ -56,14 +56,14 @@ namespace Template_P3 {
             // on first run, prepare buffers
             Prepare(shader);
 
+            GL.UseProgram(shader.programID);
             // enable texture
-            int texLoc = GL.GetUniformLocation(shader.programID, "TexCube");
-            GL.Uniform1(texLoc, 0);
             GL.ActiveTexture(TextureUnit.Texture0 );
             GL.BindTexture(TextureTarget.TextureCubeMap, texture.id);
+            int texLoc = GL.GetUniformLocation(shader.programID, "TexCube");
+            GL.Uniform1(texLoc, 0);
 
             // enable shader
-            GL.UseProgram(shader.programID);
 
             // pass transform to vertex shader
             GL.UniformMatrix4(shader.uniform_mview, false, ref projMatrix);
@@ -91,6 +91,8 @@ namespace Template_P3 {
                 GL.DrawArrays(PrimitiveType.Quads, 0, quads.Length * 4);
             }
 
+
+
             // restore previous OpenGL state
             GL.UseProgram(0);
         }
@@ -100,19 +102,21 @@ namespace Template_P3 {
 		    // on first run, prepare buffers
 		    Prepare( shader );
 
+
+            GL.UseProgram( shader.programID );
+
             // enable texture
-            int texLoc = GL.GetUniformLocation( shader.programID, "pixels" );
-		    GL.Uniform1( texLoc, 0 );
 		    GL.ActiveTexture( TextureUnit.Texture0 );
 		    GL.BindTexture( TextureTarget.Texture2D, texture.id );
+            int texLoc = GL.GetUniformLocation( shader.programID, "pixels" );
+		    GL.Uniform1( texLoc, 0 );
 
-            int cubeLoc = GL.GetUniformLocation(shader.programID, "cubemap");
-            GL.Uniform1(cubeLoc, 1);
             GL.ActiveTexture(TextureUnit.Texture1);
             GL.BindTexture(TextureTarget.TextureCubeMap, cubemap.id);
+            int cubeLoc = GL.GetUniformLocation(shader.programID, "skybox");
+            GL.Uniform1(cubeLoc, 1);
 
             // enable shader
-            GL.UseProgram( shader.programID );
 
 		    // pass transform to vertex shader
 		    GL.UniformMatrix4( shader.uniform_mview, false, ref projMatrix);
@@ -160,14 +164,14 @@ namespace Template_P3 {
             // on first run, prepare buffers
             Prepare(shader);
 
+            GL.UseProgram(shader.programID);
             // enable texture
-            int texLoc = GL.GetUniformLocation(shader.programID, "pixels");
-            GL.Uniform1(texLoc, 0);
             GL.ActiveTexture(TextureUnit.Texture0);
             GL.BindTexture(TextureTarget.Texture2D, texture.id); 
+            int texLoc = GL.GetUniformLocation(shader.programID, "pixels");
+            GL.Uniform1(texLoc, 0);
 
             // enable shader
-            GL.UseProgram(shader.programID);
 
             // pass transform to vertex shader
             GL.UniformMatrix4(shader.uniform_mview, false, ref projMatrix);

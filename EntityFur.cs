@@ -4,7 +4,7 @@ using Template_P3;
 
 public class EntityFur : Entity
 {
-    private const int furmatrices = 5;
+    private const int furmatrices = 50;
     private float a = 0;
     private Matrix4[] ma = new Matrix4[furmatrices];
 
@@ -25,9 +25,9 @@ public class EntityFur : Entity
       
         a += 0.1f;
 
-        for (int i = 0; i < furmatrices * 4; i++)
+        for (int i = 0; i < furmatrices ; i++)
         {
-            int j =  matrixcounter - i/4 - 1;
+            int j =  matrixcounter - i - 1;
             if (j < 0)
             {
                 j += furmatrices ;

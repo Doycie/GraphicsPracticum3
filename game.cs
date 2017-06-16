@@ -33,6 +33,7 @@ namespace Template_P3
 
         private Texture woodtex;
         private Texture skyboxtex;
+        private Texture furtex;
 
         private Mesh skyboxmesh;
 
@@ -50,13 +51,14 @@ namespace Template_P3
             a.Add("dn.png");
             a.Add("rt.png");
             a.Add("lf.png");
+
             skyboxtex = new Texture("../../assets/sky/darkskies_",  a);
-            woodtex = new Texture("../../assets/wood.jpg");
-            Texture furtex = new Texture("../../assets/fur2.png");
+            woodtex = new Texture("../../assets/wood.png");
+            furtex = new Texture("../../assets/fur2.png");
 
             // create shaders
             shader = new Shader("../../shaders/vs.glsl", "../../shaders/fs.glsl");
-            shader_sky = new Shader("../../shaders/vs_cloud.glsl", "../../shaders/fs_cloud.glsl");
+            shader_sky = new Shader("../../shaders/vs_sky.glsl", "../../shaders/fs_sky.glsl");
             postproc = new Shader("../../shaders/vs_post.glsl", "../../shaders/fs_post.glsl");
             shader_fur = new Shader("../../shaders/vs_fur.glsl", "../../shaders/fs_fur.glsl");
 
@@ -132,7 +134,7 @@ namespace Template_P3
                 GL.DepthMask(true);
 
                 //render scenegraph
-                scenegraph.Render(camera.getCameraMatrix(), shader, skyboxtex, camera.getCameraLocation());
+                scenegraph.Render(camera.getCameraMatrix(),  camera.getCameraLocation());
         
                
                 target.Unbind();

@@ -40,10 +40,10 @@ void main()
 	}
 	
 	vec3 I = normalize( campos + vertex);
-    vec3 R = refract(I,  norm , 0.9f);
+    vec3 R = reflect(I,  norm );
 	vec3 refr = vec3(texture(skybox, R).xyz);
 	
-	vec4 total = vec4(vec3(lightlamb +  lightspec  +ambient + refr),1.0);
+	vec4 total = vec4(vec3(lightlamb +  lightspec  +refr+ambient ),1.0);
 	outputColor = clamp( total  * texture(pixels,uv) ,0.0,1.0);
 	
 
