@@ -67,8 +67,9 @@ namespace Template_P3
             }
             // set the state for rendering the quad
             GL.ClearColor(Color.Black);
-            GL.Enable(EnableCap.Texture2D);
-            GL.Disable(EnableCap.DepthTest);
+            // GL.Enable(EnableCap.Texture2D);
+            //GL.Clear(ClearBufferMask.DepthBufferBit | ClearBufferMask.ColorBufferBit);
+            GL.Enable(EnableCap.DepthTest);
             GL.Color3(1.0f, 1.0f, 1.0f);
             GL.BindTexture(TextureTarget.Texture2D, screenID);
             GL.TexImage2D(TextureTarget.Texture2D, 0, PixelInternalFormat.Rgba,
