@@ -91,7 +91,7 @@ namespace Template_P3
         }
 
         // render the mesh using the supplied shader and matrix
-        public void Render(Shader shader, Matrix4 projMatrix, Matrix4 modelmatrix, Texture texture, Texture cubemap, Vector3 c)
+        public void RenderSkyReflect(Shader shader, Matrix4 projMatrix, Matrix4 modelmatrix, Texture texture, Texture cubemap, Vector3 c)
         {
             // on first run, prepare buffers
             Prepare(shader);

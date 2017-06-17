@@ -2,9 +2,6 @@
 
 public class Camera
 {
-    //FOV in radiants
-    float FOV;
-
     //Location of the camera.
     public Vector3 camPos;
 
@@ -26,6 +23,15 @@ public class Camera
         get
         {
             Vector3 directionVector = new Vector3(rotationMatrix * new Vector4(1, 0, 0, 0));
+            return directionVector;
+        }
+    }
+
+    Vector3 dDown
+    {
+        get
+        {
+            Vector3 directionVector = new Vector3(rotationMatrix * new Vector4(0, 1, 0, 0));
             return directionVector;
         }
     }
@@ -108,13 +114,13 @@ public class Camera
             rotation.Y -= 0.1f;
         }
 
-        /*       if (k.IsKeyDown(OpenTK.Input.Key.Q))
-               {
-                   RotateAroundZ(0.1f);
-               }
-               if (k.IsKeyDown(OpenTK.Input.Key.E))
-               {
-                   RotateAroundZ(-0.1f);
-               } */
+        if (k.IsKeyDown(OpenTK.Input.Key.Q))
+        {
+            camPos += dDown;
+        }
+        if (k.IsKeyDown(OpenTK.Input.Key.E))
+        {
+            camPos -= dDown;
+        }
     }
 }

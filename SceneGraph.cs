@@ -8,41 +8,37 @@ namespace Template_P3
     {
         const float PI = 3.1415926535f;
         float a = 0;
-        public List<Entity> entityList;
+        public List<Entity> rootEntities;
 
         public SceneGraph()
         {
-            entityList = new List<Entity>();
+            rootEntities = new List<Entity>();
+        }
+
+        public void AddRootEntity(Entity e)
+        {
+            rootEntities.Add(e);
         }
 
         public void AddEntity(Entity e, Entity p)
         {
-            e.SetParent(p);
-            entityList.Add(e);
+            p.AddChild(e);
         }
 
-        public void Render(Matrix4 projMatrix, Vector3 c)
+        public void Render(Camera c)
         {
-            a += 0.01f;
-            if (a > 2 * PI) a -= 2 * PI;
-            entityList[2].Rotate(new Vector3(a, 0, 0));
-            entityList[0].Rotate(new Vector3(0, (float)Math.Sin(a), 0));
-
-            foreach (Entity m in entityList)
+            for(int i = 0; i < rootEntities.Count; i++)
             {
-                Matrix4 resultMatrix = m.ModelMatrix;
-
-                Entity branch = m;    //follows the hierarchy
-                while (branch.Parent != null)    //while it has a parent
-                {
-                    branch = branch.Parent;
-                    resultMatrix *= branch.ModelMatrix;
-                }
-                if (m is EntitySkyReflect)
-                    (m as EntitySkyReflect).Render(projMatrix, resultMatrix, c);
-                else if (m is EntityFur)
-                    (m as EntityFur).Render(projMatrix, resultMatrix);
+                RenderEntity(rootEntities[i], c, Matrix4.Identity);
             }
+        }
+
+        private void RenderEntity(Entity e, Camera c, Matrix4 m)
+        {
+            Matrix4 res = e.ModelMatrix * m;
+            e.Render(c, res);
+            for(int i = 0; i < e.children.Count; i++)
+                RenderEntity(e.children[i], c, res);
         }
     }
 }

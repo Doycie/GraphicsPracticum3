@@ -79,20 +79,22 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Camera.cs" />
-    <Compile Include="entity.cs" />
+    <Compile Include="Entity.cs" />
     <Compile Include="EntityFur.cs" />
     <Compile Include="EntitySkyReflect.cs" />
-    <Compile Include="game.cs" />
-    <Compile Include="mesh.cs" />
-    <Compile Include="meshLoader.cs" />
-    <Compile Include="quad.cs" />
-    <Compile Include="rendertarget.cs" />
+    <Compile Include="Game.cs" />
+    <Compile Include="Mesh.cs" />
+    <Compile Include="MeshLoader.cs" />
+    <Compile Include="Quad.cs" />
+    <Compile Include="Rendertarget.cs" />
     <Compile Include="SceneGraph.cs" />
-    <Compile Include="shader.cs" />
-    <Compile Include="surface.cs" />
-    <Compile Include="template.cs" />
+    <Compile Include="Scenes\Scene.cs" />
+    <Compile Include="Scenes\Scene1.cs" />
+    <Compile Include="Shader.cs" />
+    <Compile Include="Surface.cs" />
+    <Compile Include="Template.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="texture.cs" />
+    <Compile Include="Texture.cs" />
     <Compile Include="Utility.cs" />
   </ItemGroup>
   <ItemGroup>

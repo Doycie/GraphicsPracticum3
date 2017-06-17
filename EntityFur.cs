@@ -17,7 +17,7 @@ public class EntityFur : Entity
         }
     }
 
-    public void Render(Matrix4 proj, Matrix4 m)
+    public override void Render(Camera c, Matrix4 m)
     {
         a += 0.1f;
 
@@ -28,7 +28,7 @@ public class EntityFur : Entity
             {
                 j += furmatrices;
             }
-            mesh.RenderFur(shader, proj, ma[j], texture, i * 0.04f);
+            mesh.RenderFur(shader, c.getCameraMatrix(), ma[j], texture, i * 0.04f);
         }
         ma[matrixcounter] = m;
         matrixcounter++;

@@ -10,8 +10,8 @@ public class EntitySkyReflect : Entity
         skyboxtex = sky;
     }
 
-    public void Render(Matrix4 proj, Matrix4 m, Vector3 campos)
+    public override void Render(Camera c, Matrix4 m)
     {
-        mesh.Render(shader, proj, m, texture, skyboxtex, campos);
+        mesh.RenderSkyReflect(shader, c.getCameraMatrix(), m, texture, skyboxtex, c.camPos);
     }
 }
