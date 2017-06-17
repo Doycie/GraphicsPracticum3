@@ -69,7 +69,7 @@ namespace template_P3
         public override void Update(long delta_t)
         {
             penguin2.rotation += new Vector3(0, 0, delta_t / 500f);
-            floor.rotation = new Vector3(0, (float) Math.PI * (Utility.currentTimeInMilliseconds % 4000) / 2000f, 0);
+            floor.rotation = new Vector3(0, (float) Math.Sin(Utility.currentTimeInMilliseconds % 4000 / 2000f * Math.PI), 0);
         }
 
         public override void Draw(Camera c)
