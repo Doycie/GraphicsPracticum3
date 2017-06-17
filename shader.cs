@@ -26,7 +26,7 @@ namespace Template_P3
             Load(fragmentShader, ShaderType.FragmentShader, programID, out fsID);
             GL.LinkProgram(programID);
             Console.WriteLine(GL.GetProgramInfoLog(programID));
-            
+
             // get locations of shader parameters
             attribute_vpos = GL.GetAttribLocation(programID, "vPosition");
             attribute_vnrm = GL.GetAttribLocation(programID, "vNormal");

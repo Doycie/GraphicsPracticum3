@@ -1,37 +1,33 @@
-﻿using System;
+﻿using OpenTK.Graphics.OpenGL;
+using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Imaging;
-using OpenTK.Graphics.OpenGL;
-using System.Collections.Generic;
 
-namespace Template_P3 {
-
-public class Texture
+namespace Template_P3
 {
-	// data members
-	public int id;
+    public class Texture
+    {
+        // data members
+        public int id;
 
-	// constructor
-	public Texture( string filename )
-	{
-		if (String.IsNullOrEmpty( filename )) throw new ArgumentException( filename );
-		id = GL.GenTexture();
+        // constructor
+        public Texture(string filename)
+        {
+            if (String.IsNullOrEmpty(filename)) throw new ArgumentException(filename);
+            id = GL.GenTexture();
 
-       
-		GL.BindTexture( TextureTarget.Texture2D, id );
- 		// We will not upload mipmaps, so disable mipmapping (otherwise the texture will not appear).
-		// We can use GL.GenerateMipmaps() or GL.Ext.GenerateMipmaps() to create
-		// mipmaps automatically. In that case, use TextureMinFilter.LinearMipmapLinear to enable them.
-		GL.TexParameter( TextureTarget.Texture2D, TextureParameterName.TextureMinFilter, (int)TextureMinFilter.Linear );
-		GL.TexParameter( TextureTarget.Texture2D, TextureParameterName.TextureMagFilter, (int)TextureMagFilter.Linear );
+            GL.BindTexture(TextureTarget.Texture2D, id);
+            // We will not upload mipmaps, so disable mipmapping (otherwise the texture will not appear).
+            // We can use GL.GenerateMipmaps() or GL.Ext.GenerateMipmaps() to create
+            // mipmaps automatically. In that case, use TextureMinFilter.LinearMipmapLinear to enable them.
+            GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMinFilter, (int)TextureMinFilter.Linear);
+            GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMagFilter, (int)TextureMagFilter.Linear);
 
-        Bitmap bmp = new Bitmap( filename );
-		BitmapData bmp_data = bmp.LockBits( new Rectangle( 0, 0, bmp.Width, bmp.Height ), ImageLockMode.ReadOnly, System.Drawing.Imaging.PixelFormat.Format32bppArgb );
- 		GL.TexImage2D( TextureTarget.Texture2D, 0, PixelInternalFormat.Rgba, bmp_data.Width, bmp_data.Height, 0, OpenTK.Graphics.OpenGL.PixelFormat.Bgra, PixelType.UnsignedByte, bmp_data.Scan0 );
-		bmp.UnlockBits( bmp_data );
-
-          
-
+            Bitmap bmp = new Bitmap(filename);
+            BitmapData bmp_data = bmp.LockBits(new Rectangle(0, 0, bmp.Width, bmp.Height), ImageLockMode.ReadOnly, System.Drawing.Imaging.PixelFormat.Format32bppArgb);
+            GL.TexImage2D(TextureTarget.Texture2D, 0, PixelInternalFormat.Rgba, bmp_data.Width, bmp_data.Height, 0, OpenTK.Graphics.OpenGL.PixelFormat.Bgra, PixelType.UnsignedByte, bmp_data.Scan0);
+            bmp.UnlockBits(bmp_data);
         }
 
         public Texture(string filename, List<String> a)
@@ -40,7 +36,6 @@ public class Texture
 
             id = GL.GenTexture();
 
-          
             GL.BindTexture(TextureTarget.TextureCubeMap, id);
 
             GL.TexParameter(TextureTarget.TextureCubeMap, TextureParameterName.TextureMinFilter, (int)TextureMinFilter.Linear);
@@ -49,7 +44,7 @@ public class Texture
             GL.TexParameter(TextureTarget.TextureCubeMap, TextureParameterName.TextureWrapT, (int)TextureWrapMode.ClampToEdge);
             GL.TexParameter(TextureTarget.TextureCubeMap, TextureParameterName.TextureWrapR, (int)TextureWrapMode.ClampToEdge);
 
-            for (int i = 0; i <6; i++)
+            for (int i = 0; i < 6; i++)
             {
                 String b;
                 b = filename;
@@ -61,9 +56,6 @@ public class Texture
 
                 bmp.UnlockBits(bmp_data);
             }
-
         }
-
     }
-
 } // namespace Template_P3

@@ -1,9 +1,9 @@
-﻿using System.Diagnostics;
-using OpenTK;
-using System.Collections.Generic;
-using System;
+﻿using OpenTK;
 using OpenTK.Graphics.OpenGL;
-using System.Collections;
+using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+
 // minimal OpenTK rendering framework for UU/INFOGR
 // Jacco Bikker, 2016
 
@@ -37,9 +37,8 @@ namespace Template_P3
 
         private Mesh skyboxmesh;
 
-
-
         float a = 0.0f;
+
         // initialize
         public void Init()
         {
@@ -52,7 +51,7 @@ namespace Template_P3
             a.Add("rt.png");
             a.Add("lf.png");
 
-            skyboxtex = new Texture("../../assets/sky/darkskies_",  a);
+            skyboxtex = new Texture("../../assets/sky/darkskies_", a);
             woodtex = new Texture("../../assets/wood.png");
             furtex = new Texture("../../assets/fur2.png");
 
@@ -63,10 +62,10 @@ namespace Template_P3
             shader_fur = new Shader("../../shaders/vs_fur.glsl", "../../shaders/fs_fur.glsl");
 
             // load entities
-            pot = new EntityFur(new Mesh("../../assets/teapot.obj"),shader_fur,furtex);
+            pot = new EntityFur(new Mesh("../../assets/teapot.obj"), shader_fur, furtex);
             floor = new EntityFur(new Mesh("../../assets/floor.obj"), shader_fur, furtex);
             floor2 = new EntitySkyReflect(new Mesh("../../assets/floor.obj"), shader, woodtex, skyboxtex);
-            penguin = new EntitySkyReflect( new Mesh("../../assets/pin.obj"), shader, woodtex, skyboxtex);
+            penguin = new EntitySkyReflect(new Mesh("../../assets/pin.obj"), shader, woodtex, skyboxtex);
             penguin2 = new EntitySkyReflect(new Mesh("../../assets/pin.obj"), shader, woodtex, skyboxtex);
 
             //Move and scale entities
@@ -91,14 +90,11 @@ namespace Template_P3
             timer.Reset();
             timer.Start();
 
-
             // create the render target
             target = new RenderTarget(screen.width, screen.height);
             quad = new ScreenQuad();
 
             camera = new Camera();
-
-
         }
 
         // tick for background surface
@@ -129,19 +125,16 @@ namespace Template_P3
                 target.Bind();
 
                 //render skybox
-                GL.DepthMask(false);       
+                GL.DepthMask(false);
                 skyboxmesh.RenderCubeMap(shader_sky, camera.getCameraRotationMatrix(), camera.getCameraProjMatrix(), skyboxtex);
                 GL.DepthMask(true);
 
                 //render scenegraph
-                scenegraph.Render(camera.getCameraMatrix(),  camera.getCameraLocation());
-        
-               
+                scenegraph.Render(camera.getCameraMatrix(), camera.getCameraLocation());
+
                 target.Unbind();
-                quad.Render(postproc,target.GetTextureID());
+                quad.Render(postproc, target.GetTextureID());
             }
-       
-          
         }
     }
 } // namespace Template_P3

@@ -20,10 +20,12 @@ public class Entity
         shader = s;
         scale = new Vector3(1, 1, 1);
     }
+
     public Entity Parent
     {
         get { return parent; }
     }
+
     public Matrix4 ModelMatrix
     {
         get
@@ -33,10 +35,12 @@ public class Entity
             return Matrix4.CreateTranslation(translation) * modelMatrix;
         }
     }
-    public void Rotate( Vector3 v){
+
+    public void Rotate(Vector3 v)
+    {
         rotation = v;
-        
-        }
+    }
+
     public void SetParent(Entity e)
     {
         parent = e;

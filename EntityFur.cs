@@ -1,5 +1,4 @@
 ﻿using OpenTK;
-using System;
 using Template_P3;
 
 public class EntityFur : Entity
@@ -14,25 +13,22 @@ public class EntityFur : Entity
     {
         for (int i = 0; i < furmatrices; i++)
         {
-
             ma[i] = (Matrix4.Identity);
         }
-
     }
 
-    public void Render(Matrix4 proj,Matrix4 m)
+    public void Render(Matrix4 proj, Matrix4 m)
     {
-      
         a += 0.1f;
 
-        for (int i = 0; i < furmatrices ; i++)
+        for (int i = 0; i < furmatrices; i++)
         {
-            int j =  matrixcounter - i - 1;
+            int j = matrixcounter - i - 1;
             if (j < 0)
             {
-                j += furmatrices ;
+                j += furmatrices;
             }
-            mesh.RenderFur(shader, proj, ma[j ], texture, i * 0.04f);
+            mesh.RenderFur(shader, proj, ma[j], texture, i * 0.04f);
         }
         ma[matrixcounter] = m;
         matrixcounter++;

@@ -1,7 +1,7 @@
 ﻿using OpenTK;
-using OpenTK.Graphics.ES20;
-using System.Collections.Generic;
 using System;
+using System.Collections.Generic;
+
 namespace Template_P3
 {
     public class SceneGraph
@@ -19,7 +19,6 @@ namespace Template_P3
         {
             e.SetParent(p);
             entityList.Add(e);
-            
         }
 
         public void Render(Matrix4 projMatrix, Vector3 c)
@@ -44,9 +43,6 @@ namespace Template_P3
                 else if (m is EntityFur)
                     (m as EntityFur).Render(projMatrix, resultMatrix);
             }
-
-
-
         }
     }
 }
