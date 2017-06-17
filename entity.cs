@@ -61,6 +61,6 @@ public class Entity
 
     public virtual void Render(Camera c, Matrix4 m)
     {
-
+        mesh.Render(shader, c.getCameraMatrix(), m, texture);
     }
 }
