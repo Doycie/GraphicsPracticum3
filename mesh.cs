@@ -18,11 +18,23 @@ namespace Template_P3
         int triangleBufferId;                   // triangle buffer
         int quadBufferId;                       // quad bufferz
 
+        float diffuse;
+        float specularity;
+        float refraction;
+        float reflection;
+        float eta;
+
         // constructor
-        public Mesh(string fileName)
+        public Mesh(string fileName, float diffuse = 0, float specularity = 0, float reflection = 1, float refraction = 0, float eta = 0)
         {
             MeshLoader loader = new MeshLoader();
             loader.Load(this, fileName);
+
+            this.diffuse = diffuse;
+            this.specularity = specularity;
+            this.reflection = reflection;
+            this.refraction = refraction;
+            this.eta = eta;
         }
 
         // initialization; called during first render
@@ -215,10 +227,15 @@ namespace Template_P3
             // enable texture
             GL.ActiveTexture(TextureUnit.Texture0);
             GL.BindTexture(TextureTarget.Texture2D, texture.id);
-            int texLoc = GL.GetUniformLocation(shader.programID, "pixels");
-            GL.Uniform1(texLoc, 0);
+            GL.Uniform1(shader.uniform_pixels, 0);
 
-            // enable shader
+            // set material
+            GL.Uniform1(shader.uniform_diffuse, diffuse);
+            GL.Uniform1(shader.uniform_specularity, specularity);
+            GL.Uniform1(shader.uniform_reflection, reflection);
+            GL.Uniform1(shader.uniform_refraction, refraction);
+            GL.Uniform1(shader.uniform_eta, eta);
+
 
             // pass transform to vertex shader
             GL.UniformMatrix4(shader.uniform_mview, false, ref projMatrix);

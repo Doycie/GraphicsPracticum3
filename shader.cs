@@ -15,7 +15,13 @@ namespace Template_P3
         public int uniform_mview;
         public int uniform_model;
         public int attribute_ftime;
+        public int uniform_pixels;
         public int uniform_mnormal;
+        public int uniform_diffuse;
+        public int uniform_specularity;
+        public int uniform_reflection;
+        public int uniform_refraction;
+        public int uniform_eta;
 
         // constructor
         public Shader(String vertexShader, String fragmentShader)
@@ -35,6 +41,13 @@ namespace Template_P3
             uniform_mview = GL.GetUniformLocation(programID, "projmatrix");
             uniform_model = GL.GetUniformLocation(programID, "modelmatrix");
             uniform_mnormal = GL.GetUniformLocation(programID, "normalmatrix");
+            uniform_pixels = GL.GetUniformLocation(programID, "pixels");
+            uniform_diffuse = GL.GetUniformLocation(programID, "diffuse");
+            uniform_specularity = GL.GetUniformLocation(programID, "specularity");
+            uniform_reflection = GL.GetUniformLocation(programID, "reflection");
+            uniform_refraction = GL.GetUniformLocation(programID, "refraction");
+            uniform_eta = GL.GetUniformLocation(programID, "eta");
+
         }
 
         // loading shaders

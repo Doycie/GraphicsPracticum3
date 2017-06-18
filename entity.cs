@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Template_P3;
 
-public class Entity
+public abstract class Entity
 {
     public Vector3 rotation;
     public Vector3 translation;
