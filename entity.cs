@@ -12,7 +12,19 @@ public abstract class Entity
     protected Shader shader;
 
     public List<Entity> children;         //points to the parent, if it stays null it does not have a parent
+    public Entity parent = null;
     protected Texture texture;       // texture to use for rendering
+
+    /// <summary>
+    /// Method loops through all the parents, slow for rendering but necesarry for eg lights.
+    /// </summary>
+    public Vector3 GlobalLocation
+    {
+        get
+        {
+            return translation + ((parent != null) ? parent.GlobalLocation : Vector3.Zero);
+        }
+    }
 
     public Entity(Mesh m, Shader s, Texture tex)
     {
@@ -42,6 +54,7 @@ public abstract class Entity
     public void AddChild(Entity e)
     {
         children.Add(e);
+        e.parent = this;
     }
 
     public void SetPostition(Vector3 v)
@@ -59,8 +72,5 @@ public abstract class Entity
         scale = v;
     }
 
-    public virtual void Render(Camera c, Matrix4 m)
-    {
-        mesh.Render(shader, c.getCameraMatrix(), m, texture);
-    }
+    public abstract void Render(Camera c, Matrix4 m);
 }

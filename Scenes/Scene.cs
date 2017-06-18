@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using System.Collections.Generic;
+using System.Diagnostics;
 using Template_P3;
 
 namespace template_P3
@@ -6,6 +7,8 @@ namespace template_P3
     abstract class Scene
     {
         protected SceneGraph scenegraph;
+
+        List<Entity> Lights;
 
         public Scene()
         {

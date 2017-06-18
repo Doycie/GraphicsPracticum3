@@ -81,6 +81,7 @@
     <Compile Include="Camera.cs" />
     <Compile Include="Entity.cs" />
     <Compile Include="EntityFur.cs" />
+    <Compile Include="EntityLight.cs" />
     <Compile Include="EntitySkyReflect.cs" />
     <Compile Include="Game.cs" />
     <Compile Include="Mesh.cs" />

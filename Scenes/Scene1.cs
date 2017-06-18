@@ -42,7 +42,7 @@ namespace template_P3
             shader_fur = new Shader("../../shaders/vs_fur.glsl", "../../shaders/fs_fur.glsl");
 
             // load entities
-            pot = new Entity(new Mesh("../../assets/teapot.obj"), shader, woodtex);
+            pot = new EntitySkyReflect(new Mesh("../../assets/teapot.obj"), shader, woodtex, skyboxtex);
             floor = new EntityFur(new Mesh("../../assets/floor.obj"), shader_fur, furtex);
             floor2 = new EntitySkyReflect(new Mesh("../../assets/floor.obj"), shader, woodtex, skyboxtex);
             penguin = new EntitySkyReflect(new Mesh("../../assets/pin.obj"), shader, woodtex, skyboxtex);
