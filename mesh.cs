@@ -25,7 +25,7 @@ namespace Template_P3
         float eta;
 
         // constructor
-        public Mesh(string fileName, float diffuse = 0, float specularity = 0, float reflection = 1, float refraction = 0, float eta = 0)
+        public Mesh(string fileName, float diffuse = 1, float specularity = 0, float reflection = 0, float refraction = 0, float eta = 0)
         {
             MeshLoader loader = new MeshLoader();
             loader.Load(this, fileName);
@@ -121,7 +121,12 @@ namespace Template_P3
             int cubeLoc = GL.GetUniformLocation(shader.programID, "skybox");
             GL.Uniform1(cubeLoc, 1);
 
-            // enable shader
+            // set material
+            GL.Uniform1(shader.uniform_diffuse, diffuse);
+            GL.Uniform1(shader.uniform_specularity, specularity);
+            GL.Uniform1(shader.uniform_reflection, reflection);
+            GL.Uniform1(shader.uniform_refraction, refraction);
+            GL.Uniform1(shader.uniform_eta, eta);
 
             // pass transform to vertex shader
             GL.UniformMatrix4(shader.uniform_mview, false, ref projMatrix);
@@ -235,7 +240,6 @@ namespace Template_P3
             GL.Uniform1(shader.uniform_reflection, reflection);
             GL.Uniform1(shader.uniform_refraction, refraction);
             GL.Uniform1(shader.uniform_eta, eta);
-
 
             // pass transform to vertex shader
             GL.UniformMatrix4(shader.uniform_mview, false, ref projMatrix);
