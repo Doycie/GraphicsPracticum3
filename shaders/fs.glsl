@@ -1,9 +1,11 @@
 ﻿#version 330
 
-const int lightsAmount = 4;
+const int maxLights = 4;
 
-uniform vec3 lightPos[lightsAmount] = {vec3(5,1,5),vec3(-5,1,5), vec3(5,1,-5), vec3(-5,1,-5)};
-uniform vec4 lightColor[lightsAmount] = {vec4(0.5,0.0,0.0 , 40.0),vec4(0.0,0.5,0.0,50.0) ,vec4(0.0,0.0,1.0,20.0), vec4(1.0,1.0,1.0,10.0)};
+uniform int lightsAmount = 4;
+
+uniform vec3 lightPos[maxLights];
+uniform vec3 lightColor[maxLights];
 
 vec3 ambient = vec3(0.5,0.5,0.5); 
 // shader input
@@ -53,8 +55,8 @@ void main()
 		vec3 dir = normalize(lightdir + viewdirection);
 		float specular = max(dot(dir, norm), 0.0);
 		
-		lightspec +=  specularity * lightColor[i].xyz * specular*specular*specular*specular * lightColor[i].w /(( length(lightPos[i] - vertex) *( length(lightPos[i] - vertex))));
-		lightlamb +=  diffuse * lightColor[i].xyz * lamb * lightColor[i].w /(( length(lightPos[i] - vertex) *( length(lightPos[i] - vertex)))); 
+		lightspec +=  specularity * lightColor[i].xyz * specular*specular*specular*specular/(( length(lightPos[i] - vertex) *( length(lightPos[i] - vertex))));
+		lightlamb +=  diffuse * lightColor[i].xyz * lamb /(( length(lightPos[i] - vertex) *( length(lightPos[i] - vertex)))); 
 	}
 	
 	if (refraction > 0){

@@ -22,7 +22,7 @@ namespace Template_P3
         public int uniform_reflection;
         public int uniform_refraction;
         public int uniform_eta;
-        public int uniform_numLights;
+        public int uniform_lightsAmount;
         public int uniform_lightPos;
         public int uniform_lightColor;
 
@@ -50,7 +50,7 @@ namespace Template_P3
             uniform_reflection = GL.GetUniformLocation(programID, "reflection");
             uniform_refraction = GL.GetUniformLocation(programID, "refraction");
             uniform_eta = GL.GetUniformLocation(programID, "eta");
-            uniform_numLights = GL.GetUniformLocation(programID, "numLights");
+            uniform_lightsAmount = GL.GetUniformLocation(programID, "lightsAmount");
             uniform_lightPos = GL.GetUniformLocation(programID, "lightPos");
             uniform_lightColor = GL.GetUniformLocation(programID, "lightColor");
         }

@@ -14,6 +14,7 @@ namespace template_P3
 
         public EntityLight(Mesh m, Shader s, Texture tex, Vector3 color) : base(m, s, tex)
         {
+            this.color = color;
         }
 
         public override void Render(Camera c, Matrix4 m)

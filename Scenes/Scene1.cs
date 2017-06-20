@@ -10,7 +10,6 @@ namespace template_P3
     {
         private Entity pot, floor, penguin, penguin2, floor2;                  // a mesh to draw using OpenGL
 
-        private Shader shader;                          // shader to use for rendering
         private Shader postproc;                        // shader to use for post processing
         private Shader shader_sky;
         private Shader shader_fur;
@@ -21,7 +20,9 @@ namespace template_P3
 
         private Mesh skyboxmesh;
 
-        public override void Load() {
+        Vector3 a = new Vector3(0, 0, 0);
+
+        protected override void LoadScene() {
             //load textures
             List<String> a = new List<string>();
             a.Add("ft.png");
@@ -64,20 +65,29 @@ namespace template_P3
 
             //Load skybox
             skyboxmesh = new Mesh("../../assets/cube1.obj");
+
+            lights = new List<EntityLight>();
+            lights.Add(new EntityLight(null, null, null, new Vector3(20, 0, 0)));
+            lights[0].SetPostition(new Vector3(5, 1, 5));
+
+            lights.Add(new EntityLight(null, null, null, new Vector3(0, 25, 0)));
+            lights[1].SetPostition(new Vector3(-5, 1, 5));
+
+            lights.Add(new EntityLight(null, null, null, new Vector3(0, 0, 20)));
+            lights[2].SetPostition(new Vector3(5, 1, -5));
+
+            lights.Add(new EntityLight(null, null, null, new Vector3(10, 10, 10)));
+            lights[3].SetPostition(new Vector3(-5, 1, -5));
+
         }
 
         public override void Update(long delta_t)
         {
             penguin2.rotation += new Vector3(0, 0, delta_t / 500f);
             floor.rotation = new Vector3(0, (float) Math.Sin(Utility.currentTimeInMilliseconds % 4000 / 2000f * Math.PI), 0);
-            Vector3[] a = new Vector3[4];
-            for(int i = 0;i < 4;i ++)
-            {
-                a[i]= new Vector3(1.0f, 1.0f, 1.0f);
-            }
-            GL.UseProgram(shader.programID);
-            GL.Uniform3(shader.uniform_lightPos, a[0] );
-            GL.UseProgram(0);
+            lights[0].SetPostition(lights[0].GlobalLocation +  new Vector3(0, 0, (float)Math.Sin(Utility.currentTimeInMilliseconds % 4000 / 2000f * Math.PI)));
+
+            PushLightsToShader();
         }
 
         public override void Draw(Camera c)
