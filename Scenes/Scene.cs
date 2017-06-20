@@ -28,11 +28,7 @@ namespace template_P3
         {
             LoadScene();
 
-            InitLights();
-        }
-
-        protected void InitLights()
-        {
+            PushLightsToShader();
         }
 
         public abstract void Update(long delta_t);
