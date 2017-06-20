@@ -5,7 +5,7 @@ const int lightsAmount = 4;
 uniform vec3 lightPos[lightsAmount] = {vec3(5,1,5),vec3(-5,1,5), vec3(5,1,-5), vec3(-5,1,-5)};
 uniform vec4 lightColor[lightsAmount] = {vec4(0.5,0.0,0.0 , 40.0),vec4(0.0,0.5,0.0,50.0) ,vec4(0.0,0.0,1.0,20.0), vec4(1.0,1.0,1.0,10.0)};
 
-vec3 ambient = vec3(0,0,0); 
+vec3 ambient = vec3(0.5,0.5,0.5); 
 // shader input
 in vec2 uv;						// interpolated texture coordinates
 in vec4 normal;					// interpolated normal
@@ -35,6 +35,10 @@ vec3 refract(vec3 I, vec3 N, float eta){
 // fragment shader
 void main()
 {
+
+	if(texture(pixels,uv).a < 0.1){
+		discard;
+	}
 	vec3 lightspec = vec3(0,0,0);
 	vec3 lightlamb = vec3(0,0,0);
 	vec3 refr = vec3(0,0,0);
@@ -65,6 +69,7 @@ void main()
 		refl = reflection * vec3(texture(skybox, R).xyz);
 	}
 
-	vec4 total = vec4(lightlamb + lightspec + refr + refl + ambient,1.0);
+	vec4 total = vec4(lightlamb + lightspec + refr +refl + ambient,1.0);
 	outputColor = clamp( total * texture(pixels,uv) ,0.0,1.0);
+	
 }

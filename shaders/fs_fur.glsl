@@ -13,7 +13,9 @@ out vec4 outputColor;
 // fragment shader
 void main()
 {
-	
+	if(texture(pixels,uv).a < 0.1){
+		discard;
+	}
 	vec4 total = vec4(vec3(ambient ),1.0);
 	outputColor = clamp( total  * texture(pixels,uv) ,0.0,1.0);
 	

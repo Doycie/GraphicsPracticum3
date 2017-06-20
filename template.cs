@@ -20,6 +20,7 @@ namespace Template_P3
             GL.Enable(EnableCap.Texture2D);
             GL.Enable(EnableCap.TextureCubeMap);
             GL.Disable(EnableCap.DepthTest);
+            GL.Disable(EnableCap.CullFace);
             GL.Enable(EnableCap.Blend);
             GL.BlendFunc(BlendingFactorSrc.SrcAlpha, BlendingFactorDest.OneMinusSrcAlpha);
             GL.Hint(HintTarget.PerspectiveCorrectionHint, HintMode.Nicest);
@@ -93,6 +94,7 @@ namespace Template_P3
             GL.Clear(ClearBufferMask.DepthBufferBit);
             GL.Disable(EnableCap.Texture2D);
             // do OpenGL rendering
+            
             game.RenderGL();
             // swap buffers
             SwapBuffers();

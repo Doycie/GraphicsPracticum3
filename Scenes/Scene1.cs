@@ -70,6 +70,14 @@ namespace template_P3
         {
             penguin2.rotation += new Vector3(0, 0, delta_t / 500f);
             floor.rotation = new Vector3(0, (float) Math.Sin(Utility.currentTimeInMilliseconds % 4000 / 2000f * Math.PI), 0);
+            Vector3[] a = new Vector3[4];
+            for(int i = 0;i < 4;i ++)
+            {
+                a[i]= new Vector3(1.0f, 1.0f, 1.0f);
+            }
+            GL.UseProgram(shader.programID);
+            GL.Uniform3(shader.uniform_lightPos, a[0] );
+            GL.UseProgram(0);
         }
 
         public override void Draw(Camera c)
