@@ -108,6 +108,7 @@
     <None Include="shaders\fs.glsl" />
     <None Include="shaders\fs_cloud.glsl" />
     <None Include="shaders\fs_fur.glsl" />
+    <None Include="shaders\fs_light.glsl" />
     <None Include="shaders\fs_post.glsl" />
     <None Include="shaders\fs_sky.glsl" />
     <None Include="shaders\vs.glsl" />

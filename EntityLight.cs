@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using OpenTK;
+﻿using OpenTK;
 using Template_P3;
+using OpenTK.Graphics.OpenGL;
 
 namespace template_P3
 {
@@ -19,7 +15,9 @@ namespace template_P3
 
         public override void Render(Camera c, Matrix4 m)
         {
-            
+            GL.ProgramUniform3(shader.programID, shader.uniform_color, color);
+
+            mesh.Render(shader, c.getCameraMatrix(), m, texture);
         }
     }
 }

@@ -108,7 +108,6 @@ namespace template_P3
             scenegraph.AddEntity(wheel3, kart3);
             scenegraph.AddEntity(star, floor2);
 
-
             //Load skybox
             skyboxmesh = new Mesh("../../assets/cube1.obj");
 

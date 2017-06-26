@@ -38,7 +38,7 @@ vec3 refract(vec3 I, vec3 N, float eta){
 void main()
 {
 
-	if(texture(pixels,uv).a < 0.1){
+	if(texture(pixels,uv).w < 0.5){
 		discard;
 	}
 	vec3 lightspec = vec3(0,0,0);
@@ -55,8 +55,8 @@ void main()
 		vec3 dir = normalize(lightdir + viewdirection);
 		float specular = max(dot(dir, norm), 0.0);
 		
-		lightspec +=  specularity * lightColor[i] * specular*specular*specular*specular/(( length(lightPos[i] - vertex) *( length(lightPos[i] - vertex))));
-		lightlamb +=  diffuse * lightColor[i] * lamb /(( length(lightPos[i] - vertex) *( length(lightPos[i] - vertex)))); 
+		lightspec +=  specularity * lightColor[i].xyz * specular*specular*specular*specular/(( length(lightPos[i] - vertex) *( length(lightPos[i] - vertex))));
+		lightlamb +=  diffuse * lightColor[i].xyz * lamb /(( length(lightPos[i] - vertex) *( length(lightPos[i] - vertex)))); 
 	}
 	
 	if (refraction > 0){
@@ -72,11 +72,6 @@ void main()
 	}
 
 	vec3 total = vec3(lightlamb + lightspec + refr +refl + ambient);
-
-	vec4 textureColor = texture(pixels,uv);
-
-	if(textureColor.w < 0.5)
-		discard;
-
-	outputColor = vec4(clamp(total * textureColor.xyz,0.0,1.0), 1.0);
+	outputColor = vec4(total * texture(pixels,uv).xyz, 1.0);
+	
 }

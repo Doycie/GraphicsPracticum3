@@ -229,10 +229,13 @@ namespace Template_P3
 
             GL.UseProgram(shader.programID);
 
-            // enable texture
-            GL.ActiveTexture(TextureUnit.Texture0);
-            GL.BindTexture(TextureTarget.Texture2D, texture.id);
-            GL.Uniform1(shader.uniform_pixels, 0);
+            if(texture != null)
+            {
+                // enable texture
+                GL.ActiveTexture(TextureUnit.Texture0);
+                GL.BindTexture(TextureTarget.Texture2D, texture.id);
+                GL.Uniform1(shader.uniform_pixels, 0);
+            }
 
             // set material
             GL.Uniform1(shader.uniform_diffuse, diffuse);

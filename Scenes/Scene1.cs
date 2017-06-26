@@ -19,6 +19,7 @@ namespace template_P3
         private Entity pot, floor, penguin, penguin2, floor2;                  // a mesh to draw using OpenGL
 
         private Shader postproc;                        // shader to use for post processing
+        private Shader shader_light;
         private Shader shader_sky;
         private Shader shader_fur;
 
@@ -46,6 +47,7 @@ namespace template_P3
 
             // create shaders
             shader = new Shader("../../shaders/vs.glsl", "../../shaders/fs.glsl");
+            shader_light = new Shader("../../shaders/vs.glsl", "../../shaders/fs_light.glsl");
             shader_sky = new Shader("../../shaders/vs_sky.glsl", "../../shaders/fs_sky.glsl");
             postproc = new Shader("../../shaders/vs_post.glsl", "../../shaders/fs_post.glsl");
             shader_fur = new Shader("../../shaders/vs_fur.glsl", "../../shaders/fs_fur.glsl");
@@ -75,18 +77,20 @@ namespace template_P3
             skyboxmesh = new Mesh("../../assets/cube1.obj");
 
             lights = new List<EntityLight>();
-            lights.Add(new EntityLight(null, null, null, new Vector3(20, 0, 0)));
+            lights.Add(new EntityLight(new Mesh("../../assets/cube.obj"), shader_light, null, new Vector3(200, 0, 0)));
             lights[0].SetPostition(new Vector3(5, 1, 5));
 
-            lights.Add(new EntityLight(null, null, null, new Vector3(0, 25, 0)));
+            lights.Add(new EntityLight(new Mesh("../../assets/cube.obj"), shader_light, null, new Vector3(0, 250, 0)));
             lights[1].SetPostition(new Vector3(-5, 1, 5));
 
-            lights.Add(new EntityLight(null, null, null, new Vector3(0, 0, 20)));
+            lights.Add(new EntityLight(new Mesh("../../assets/cube.obj"), shader_light, null, new Vector3(0, 0, 200)));
             lights[2].SetPostition(new Vector3(5, 1, -5));
 
-            lights.Add(new EntityLight(null, null, null, new Vector3(10, 10, 10)));
+            lights.Add(new EntityLight(new Mesh("../../assets/cube.obj"), shader_light, null, new Vector3(100, 100, 100)));
             lights[3].SetPostition(new Vector3(-5, 1, -5));
 
+            for (int i = 0; i < lights.Count; i++)
+                scenegraph.AddRootEntity(lights[i]);
         }
 
         public override void Update(long delta_t)
