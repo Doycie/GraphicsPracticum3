@@ -57,15 +57,15 @@ namespace template_P3
             shader_fur = new Shader("../../shaders/vs_fur.glsl", "../../shaders/fs_fur.glsl");
 
             // load entities
-            kart1 = new EntitySkyReflect(new Mesh("../../assets/Mario Kart/Mario/obj/Kart.obj"), shader, mkartex, skyboxtex);
-            mario = new EntitySkyReflect(new Mesh("../../assets/Mario Kart/Mario/obj/Mario.obj"), shader, martex, skyboxtex);
-            wheel1 = new EntitySkyReflect(new Mesh("../../assets/Mario Kart/Mario/obj/Wheels.obj"), shader, wheeltex, skyboxtex);
-            kart2 = new EntitySkyReflect(new Mesh("../../assets/Mario Kart/Mario/obj/Kart.obj"), shader, pkartex, skyboxtex);
+            kart1 = new EntitySkyReflect(new Mesh("../../assets/Mario Kart/Mario/Kart.obj"), shader, mkartex, skyboxtex);
+            mario = new EntitySkyReflect(new Mesh("../../assets/Mario Kart/Mario/Mario.obj"), shader, martex, skyboxtex);
+            wheel1 = new EntitySkyReflect(new Mesh("../../assets/Mario Kart/Mario/Wheels.obj"), shader, wheeltex, skyboxtex);
+            kart2 = new EntitySkyReflect(new Mesh("../../assets/Mario Kart/Mario/Kart.obj"), shader, pkartex, skyboxtex);
             peach = new EntitySkyReflect(new Mesh("../../assets/Mario Kart/Peach/Peach.obj"), shader, peatex, skyboxtex);
-            wheel2 = new EntitySkyReflect(new Mesh("../../assets/Mario Kart/Mario/obj/Wheels.obj"), shader, wheeltex, skyboxtex);
-            kart3 = new EntitySkyReflect(new Mesh("../../assets/Mario Kart/Mario/obj/Kart.obj"), shader, ykartex, skyboxtex);
+            wheel2 = new EntitySkyReflect(new Mesh("../../assets/Mario Kart/Mario/Wheels.obj"), shader, wheeltex, skyboxtex);
+            kart3 = new EntitySkyReflect(new Mesh("../../assets/Mario Kart/Mario/Kart.obj"), shader, ykartex, skyboxtex);
             yoshi = new EntitySkyReflect(new Mesh("../../assets/Mario Kart/Yoshi/Yoshi.obj"), shader, yostex, skyboxtex);
-            wheel3 = new EntitySkyReflect(new Mesh("../../assets/Mario Kart/Mario/obj/Wheels.obj"), shader, wheeltex, skyboxtex);
+            wheel3 = new EntitySkyReflect(new Mesh("../../assets/Mario Kart/Mario/Wheels.obj"), shader, wheeltex, skyboxtex);
             floor2 = new EntitySkyReflect(new Mesh("../../assets/floor.obj"), shader, nultex, skyboxtex);
             floor = new EntityFur(new Mesh("../../assets/floor.obj"), shader_fur, furtex);
             map = new EntitySkyReflect(new Mesh("../../assets/Mario Kart/Maps/KPBeach/KoopaTroopaBeach.obj"), shader, maptex1, skyboxtex);
