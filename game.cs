@@ -1,4 +1,5 @@
-﻿using System;
+﻿using OpenTK;
+using System;
 using System.Diagnostics;
 using template_P3;
 
@@ -9,10 +10,10 @@ namespace Template_P3
 {
     internal class Game
     {
-        double lastUpdateTime = -1;
-
         // member variables
         public Surface screen;                  // background surface for printing etc.
+
+        private GameWindow window;
 
         Scene scene;
 
@@ -26,6 +27,11 @@ namespace Template_P3
 
         private Camera camera;
 
+        public Game(GameWindow window)
+        {
+            this.window = window;
+        }
+
         // initialize
         public void Init()
         {
@@ -35,8 +41,7 @@ namespace Template_P3
 
             camera = new Camera();
 
-            scene = new Scene1();
-            scene.Load();
+            SwitchScene(new Scene1());
 
             // initialize stopwatch
             timer = new Stopwatch();
@@ -61,6 +66,21 @@ namespace Template_P3
         public void Input(OpenTK.Input.KeyboardState k)
         {
             camera.Input(k);
+
+            if (k.IsKeyDown(OpenTK.Input.Key.Number1))
+                SwitchScene(new Scene1());
+            else if (k.IsKeyDown(OpenTK.Input.Key.Number2))
+                SwitchScene(new Scene2());
+        }
+
+        public void SwitchScene(Scene scene)
+        {
+            if(this.scene == null || this.scene.NAME != scene.NAME)
+            {
+                this.scene = scene;
+                scene.Load();
+                window.Title = "Codengine: scene " + scene.NAME;
+            }
         }
 
         // tick for OpenGL rendering code

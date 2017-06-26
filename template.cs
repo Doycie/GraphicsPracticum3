@@ -25,7 +25,7 @@ namespace Template_P3
             GL.BlendFunc(BlendingFactorSrc.SrcAlpha, BlendingFactorDest.OneMinusSrcAlpha);
             GL.Hint(HintTarget.PerspectiveCorrectionHint, HintMode.Nicest);
             ClientSize = new Size(1280, 720);
-            game = new Game();
+            game = new Game(this);
             game.screen = new Surface(Width, Height);
             Sprite.target = game.screen;
             screenID = game.screen.GenTexture();

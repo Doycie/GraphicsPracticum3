@@ -8,6 +8,14 @@ namespace template_P3
 {
     class Scene2 : Scene
     {
+        public override string NAME
+        {
+            get
+            {
+                return "MARIO CART";
+            }
+        }
+
         private Entity pot, floor, penguin, penguin2, floor2,
             kart1, kart2, kart3, mario, peach, yoshi, wheel1, wheel2, wheel3,
             map, star;                 // a mesh to draw using OpenGL

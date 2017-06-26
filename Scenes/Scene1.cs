@@ -8,6 +8,14 @@ namespace template_P3
 {
     class Scene1 : Scene
     {
+        public override string NAME
+        {
+            get
+            {
+                return "DEMO";
+            }
+        }
+
         private Entity pot, floor, penguin, penguin2, floor2;                  // a mesh to draw using OpenGL
 
         private Shader postproc;                        // shader to use for post processing
@@ -95,7 +103,6 @@ namespace template_P3
             //render skybox
             GL.DepthMask(false);
             skyboxmesh.RenderCubeMap(shader_sky, c.getCameraRotationMatrix(), c.getCameraProjMatrix(), skyboxtex);
-            GL.DepthMask(true);
 
             //render scenegraph
             scenegraph.Render(c);

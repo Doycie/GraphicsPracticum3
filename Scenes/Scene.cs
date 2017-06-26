@@ -9,6 +9,12 @@ namespace template_P3
 {
     abstract class Scene
     {
+        //Name for the scene, must be uniquely identifying for scenes.
+        public abstract string NAME
+        {
+            get;
+        }
+
         protected SceneGraph scenegraph;
 
         protected Shader shader;                          // shader to use for rendering
