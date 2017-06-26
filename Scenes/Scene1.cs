@@ -103,6 +103,7 @@ namespace template_P3
             //render skybox
             GL.DepthMask(false);
             skyboxmesh.RenderCubeMap(shader_sky, c.getCameraRotationMatrix(), c.getCameraProjMatrix(), skyboxtex);
+            GL.DepthMask(true);
 
             //render scenegraph
             scenegraph.Render(c);
