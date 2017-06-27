@@ -140,7 +140,7 @@ namespace template_P3
             PushLightsToShader();
         }
 
-        public override void Draw(Camera c)
+        public override void DrawScene(Camera c)
         {
             //render skybox
             GL.DepthMask(false);
@@ -149,11 +149,6 @@ namespace template_P3
 
             //render scenegraph
             scenegraph.Render(c);
-        }
-
-        public override void DrawPost(ScreenQuad q, RenderTarget t)
-        {
-            q.Render(postproc, t.GetTextureID());
         }
     }
 }

@@ -18,7 +18,6 @@ namespace template_P3
 
         private Entity pot, floor, penguin, penguin2, floor2;                  // a mesh to draw using OpenGL
 
-        private Shader postproc;                        // shader to use for post processing
         private Shader shader_light;
         private Shader shader_sky;
         private Shader shader_fur;
@@ -102,7 +101,7 @@ namespace template_P3
             PushLightsToShader();
         }
 
-        public override void Draw(Camera c)
+        public override void DrawScene(Camera c)
         {
             //render skybox
             GL.DepthMask(false);
@@ -111,11 +110,6 @@ namespace template_P3
 
             //render scenegraph
             scenegraph.Render(c);
-        }
-
-        public override void DrawPost(ScreenQuad q, RenderTarget t)
-        {
-            q.Render(postproc, t.GetTextureID());
         }
     }
 }

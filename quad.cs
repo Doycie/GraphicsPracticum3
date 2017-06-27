@@ -36,8 +36,7 @@ namespace Template_P3
             Prepare(shader);
 
             // enable texture
-            int texLoc = GL.GetUniformLocation(shader.programID, "pixels");
-            GL.Uniform1(texLoc, 0);
+            GL.Uniform1(shader.uniform_pixels, 0);
             GL.ActiveTexture(TextureUnit.Texture0);
             GL.BindTexture(TextureTarget.Texture2D, textureID);
 

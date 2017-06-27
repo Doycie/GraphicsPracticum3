@@ -26,6 +26,7 @@ namespace Template_P3
         public int uniform_lightPos;
         public int uniform_lightColor;
         public int uniform_color;
+        public int uniform_ambient;
 
         // constructor
         public Shader(String vertexShader, String fragmentShader)
@@ -55,6 +56,7 @@ namespace Template_P3
             uniform_lightPos = GL.GetUniformLocation(programID, "lightPos");
             uniform_lightColor = GL.GetUniformLocation(programID, "lightColor");
             uniform_color = GL.GetUniformLocation(programID, "color");
+            uniform_ambient = GL.GetUniformLocation(programID, "ambient");
         }
 
         // loading shaders

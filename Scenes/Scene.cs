@@ -16,16 +16,18 @@ namespace template_P3
         }
 
         protected SceneGraph scenegraph;
+        protected Shader shader;                          // shader to use for rendering that includes lightning.
+        protected Shader postproc;                          // shader to use for post processing
 
-        protected Shader shader;                          // shader to use for rendering
-
-        int VBO_LightPos;
-        int VBO_LightCol;
+        ScreenQuad blendQuad;
 
         public List<EntityLight> lights;
 
+        public Vector3 ambient = new Vector3(0.5f, 0.5f, 0.5f);
+
         public Scene()
         {
+            blendQuad = new ScreenQuad();
         }
 
         protected abstract void LoadScene();
@@ -60,10 +62,28 @@ namespace template_P3
             GL.ProgramUniform3(shader.programID, shader.uniform_lightPos, lights.Count, light_position);
 
             GL.ProgramUniform3(shader.programID, shader.uniform_lightColor, lights.Count, light_color);
+
+            GL.ProgramUniform3(shader.programID, shader.uniform_ambient, ambient);
         }
 
-        public abstract void Draw(Camera c);
+        public void Draw(Camera c)
+        {
+            DrawBuffersEnum[] buffers =
+            {
+                DrawBuffersEnum.ColorAttachment0,
+                DrawBuffersEnum.ColorAttachment1
+            };
 
-        public abstract void DrawPost(ScreenQuad q, RenderTarget t);
+            GL.DrawBuffers(2, buffers);
+
+            DrawScene(c);
+        }
+
+        public abstract void DrawScene(Camera c);
+
+        public virtual void DrawPost(ScreenQuad q, RenderTarget t)
+        {
+            q.Render(postproc, t.GetTextureID());
+        }
     }
 }
