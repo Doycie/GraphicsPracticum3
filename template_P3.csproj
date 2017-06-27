@@ -92,6 +92,7 @@
     <Compile Include="Scenes\Scene.cs" />
     <Compile Include="Scenes\Scene2.cs" />
     <Compile Include="Scenes\Scene1.cs" />
+    <Compile Include="Scenes\Scene3.cs" />
     <Compile Include="Shader.cs" />
     <Compile Include="Surface.cs" />
     <Compile Include="Template.cs" />

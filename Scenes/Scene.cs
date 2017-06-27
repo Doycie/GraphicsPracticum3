@@ -23,7 +23,7 @@ namespace template_P3
 
         public List<EntityLight> lights;
 
-        public Vector3 ambient = new Vector3(0.5f, 0.5f, 0.5f);
+        public Vector3 ambient = new Vector3(0.2f, 0.2f, 0.2f);
 
         public Scene()
         {
