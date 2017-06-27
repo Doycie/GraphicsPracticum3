@@ -1,6 +1,6 @@
 6051529 Dennis Arets
 5910137 Cody Arets
-	Faris van Hien
+5937949 Faris van Hien
 
 Besides the required features several extras have been addded:
 	-Support for multiple scenes, switch between scenes by pressing the number keys in the application. 
@@ -16,3 +16,9 @@ Besides the required features several extras have been addded:
 Used materials:
 	-refract method in fs.glsl from khronos opengl documentation.
 	-the sky images come from [WTF?]Mr-Gibs see the readme in the assets folder for futher information
+	-the mario kart models were downloaded from models-resource.com :
+		-Mario: https://www.models-resource.com/3ds/nintendogscats/model/15991/
+		-Peach: https://www.models-resource.com/3ds/nintendogscats/model/15971/
+		-Yoshi: https://www.models-resource.com/3ds/nintendogscats/model/15992/
+		-Map: https://www.models-resource.com/nintendo_64/mariokart64/model/17213/
+		-Star: https://www.models-resource.com/gamecube/luigismansion/model/6896/
