@@ -13,5 +13,6 @@ Besides the required features several extras have been addded:
 	-
 	-
 
-Used code: 
+Used materials:
 	-refract method in fs.glsl from khronos opengl documentation.
+	-the sky images come from [WTF?]Mr-Gibs see the readme in the assets folder for futher information
