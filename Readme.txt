@@ -10,7 +10,7 @@ Besides the required features several extras have been addded:
 		The teapot in the first scene is reflective and refractive. Note older opengl versions do not support
   		the method reflect in GLSL so this was taken from the documentation as specified in fs.glsl
 	-Vignetting and chromatic aberration are added. they can be turned on in the post_fs.glsl by setting their bools to true
-	-
+	-A cloud rendering shader see scene 3 ( using brownian noise and perlin)
 	-
 
 Used materials:

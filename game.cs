@@ -71,13 +71,11 @@ namespace Template_P3
                 SwitchScene(new Scene1());
             else if (k.IsKeyDown(OpenTK.Input.Key.Number2))
                 SwitchScene(new Scene2());
-<<<<<<< HEAD
             else if (k.IsKeyDown(OpenTK.Input.Key.Number4))
                 SwitchScene(new Scene4());
-=======
             else if (k.IsKeyDown(OpenTK.Input.Key.Number3))
                 SwitchScene(new Scene3());
->>>>>>> origin/master
+
         }
 
         public void SwitchScene(Scene scene)
