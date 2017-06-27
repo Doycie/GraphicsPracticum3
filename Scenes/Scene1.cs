@@ -76,16 +76,16 @@ namespace template_P3
             skyboxmesh = new Mesh("../../assets/cube1.obj");
 
             lights = new List<EntityLight>();
-            lights.Add(new EntityLight(new Mesh("../../assets/cube.obj"), shader_light, null, new Vector3(200, 0, 0)));
+            lights.Add(new EntityLight(new Mesh("../../assets/sphere.obj"), shader_light, null, new Vector3(200, 0, 0)));
             lights[0].SetPostition(new Vector3(5, 1, 5));
 
-            lights.Add(new EntityLight(new Mesh("../../assets/cube.obj"), shader_light, null, new Vector3(0, 250, 0)));
+            lights.Add(new EntityLight(new Mesh("../../assets/sphere.obj"), shader_light, null, new Vector3(0, 250, 0)));
             lights[1].SetPostition(new Vector3(-5, 1, 5));
 
-            lights.Add(new EntityLight(new Mesh("../../assets/cube.obj"), shader_light, null, new Vector3(0, 0, 200)));
+            lights.Add(new EntityLight(new Mesh("../../assets/sphere.obj"), shader_light, null, new Vector3(0, 0, 200)));
             lights[2].SetPostition(new Vector3(5, 1, -5));
 
-            lights.Add(new EntityLight(new Mesh("../../assets/cube.obj"), shader_light, null, new Vector3(100, 100, 100)));
+            lights.Add(new EntityLight(new Mesh("../../assets/sphere.obj"), shader_light, null, new Vector3(100, 100, 100)));
             lights[3].SetPostition(new Vector3(-5, 1, -5));
 
             for (int i = 0; i < lights.Count; i++)
