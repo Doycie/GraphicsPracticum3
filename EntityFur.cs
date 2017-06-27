@@ -28,7 +28,7 @@ public class EntityFur : Entity
             {
                 j += furmatrices;
             }
-            mesh.RenderFur(shader, c.getCameraMatrix(), ma[j], texture, i * 0.04f);
+            mesh.RenderFur(shader, c.CameraMatrix, ma[j], texture, i * 0.04f);
         }
         ma[matrixcounter] = m;
         matrixcounter++;

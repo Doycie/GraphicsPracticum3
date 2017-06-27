@@ -50,7 +50,6 @@ namespace Template_P3
 
         protected override void OnUpdateFrame(FrameEventArgs e)
         {
-            // called once per frame; app logic
             var keyboard = OpenTK.Input.Keyboard.GetState();
             if (keyboard[OpenTK.Input.Key.Escape]) this.Exit();
 
@@ -107,4 +106,4 @@ namespace Template_P3
             using (OpenTKApp app = new OpenTKApp()) { app.Run(60.0); }
         }
     }
-} // namespace Template_P3
+}

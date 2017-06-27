@@ -36,7 +36,7 @@ namespace Template_P3
             Prepare(shader);
 
             // enable texture
-            GL.Uniform1(shader.uniform_pixels, 0);
+            GL.Uniform1(shader.uniform_texture, 0);
             GL.ActiveTexture(TextureUnit.Texture0);
             GL.BindTexture(TextureTarget.Texture2D, textureID);
 
@@ -64,4 +64,4 @@ namespace Template_P3
             GL.UseProgram(0);
         }
     }
-} // namespace Template_P3
+}

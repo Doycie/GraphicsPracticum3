@@ -1,4 +1,5 @@
 ﻿using OpenTK;
+using OpenTK.Input;
 using System.Diagnostics;
 using template_P3;
 
@@ -10,11 +11,11 @@ namespace Template_P3
     internal class Game
     {
         // member variables
-        public Surface screen;                  // background surface for printing etc.
+        public Surface screen;                  // background surface for printing etc
 
-        private GameWindow window;
+        protected GameWindow window;            // the opentk window
 
-        Scene scene;
+        protected Scene scene;                  // current scene.
 
         private const float PI = 3.1415926535f;         // PI
 
@@ -22,7 +23,7 @@ namespace Template_P3
 
         private RenderTarget target;                    // intermediate render target
         private ScreenQuad quad;                        // screen filling quad for post processing
-        private bool useRenderTarget = true;
+        private const bool useRenderTarget = true;
 
         private Camera camera;
 
@@ -62,7 +63,7 @@ namespace Template_P3
             timer.Start();
         }
 
-        public void Input(OpenTK.Input.KeyboardState k)
+        public void Input(KeyboardState k)
         {
             camera.Input(k);
 
@@ -74,6 +75,8 @@ namespace Template_P3
                 SwitchScene(new Scene4());
             else if (k.IsKeyDown(OpenTK.Input.Key.Number3))
                 SwitchScene(new Scene3());
+
+            scene.Input(k);
         }
 
         public void SwitchScene(Scene scene)

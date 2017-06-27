@@ -18,6 +18,7 @@ namespace Template_P3
             id = GL.GenTexture();
 
             GL.BindTexture(TextureTarget.Texture2D, id);
+
             // We will not upload mipmaps, so disable mipmapping (otherwise the texture will not appear).
             // We can use GL.GenerateMipmaps() or GL.Ext.GenerateMipmaps() to create
             // mipmaps automatically. In that case, use TextureMinFilter.LinearMipmapLinear to enable them.
@@ -58,4 +59,4 @@ namespace Template_P3
             }
         }
     }
-} // namespace Template_P3
+}

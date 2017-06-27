@@ -5,8 +5,6 @@ namespace Template_P3
 {
     public class SceneGraph
     {
-        const float PI = 3.1415926535f;
-        float a = 0;
         public List<Entity> rootEntities;
 
         public SceneGraph()
@@ -27,9 +25,7 @@ namespace Template_P3
         public void Render(Camera c)
         {
             for (int i = 0; i < rootEntities.Count; i++)
-            {
                 RenderEntity(rootEntities[i], c, Matrix4.Identity);
-            }
         }
 
         private void RenderEntity(Entity e, Camera c, Matrix4 m)

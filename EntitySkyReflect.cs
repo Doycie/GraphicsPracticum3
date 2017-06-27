@@ -12,6 +12,6 @@ public class EntitySkyReflect : Entity
 
     public override void Render(Camera c, Matrix4 m)
     {
-        mesh.RenderSkyReflect(shader, c.getCameraMatrix(), m, texture, skyboxtex, c.camPos);
+        mesh.RenderSkyReflect(shader, c.CameraMatrix, m, texture, skyboxtex, c.camPos);
     }
 }

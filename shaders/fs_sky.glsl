@@ -7,10 +7,6 @@ uniform samplerCube TexCube;		// texture sampler
 // shader output
 out vec4 outputColor;
 
-
-
-
-
 // fragment shader
 void main()
 {

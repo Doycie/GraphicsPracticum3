@@ -13,7 +13,6 @@ out vec3 normal;			// transformed vertex normal
 out vec2 uv;
 out vec3 vertex;			
 
- 
 // vertex shader
 void main()
 {

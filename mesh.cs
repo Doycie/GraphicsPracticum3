@@ -6,7 +6,6 @@ using System.Runtime.InteropServices;
 namespace Template_P3
 {
     // mesh and loader based on work by JTalton; http://www.opentk.com/node/642
-
     public class Mesh
     {
         // data members
@@ -115,13 +114,11 @@ namespace Template_P3
             // enable texture
             GL.ActiveTexture(TextureUnit.Texture0);
             GL.BindTexture(TextureTarget.Texture2D, texture.id);
-            int texLoc = GL.GetUniformLocation(shader.programID, "pixels");
-            GL.Uniform1(texLoc, 0);
+            GL.Uniform1(shader.uniform_texture, 0);
 
             GL.ActiveTexture(TextureUnit.Texture1);
             GL.BindTexture(TextureTarget.TextureCubeMap, cubemap.id);
-            int cubeLoc = GL.GetUniformLocation(shader.programID, "skybox");
-            GL.Uniform1(cubeLoc, 1);
+            GL.Uniform1(shader.uniform_skybox, 1);
 
             // set material
             GL.Uniform1(shader.uniform_diffuse, diffuse);
@@ -137,8 +134,7 @@ namespace Template_P3
             normalMatrix.Transpose();
             GL.UniformMatrix4(shader.uniform_mnormal, false, ref normalMatrix);
 
-            int campos = GL.GetUniformLocation(shader.programID, "campos");
-            GL.Uniform3(campos, c.X, c.Y, c.Z);
+            GL.Uniform3(shader.uniform_campos, c.X, c.Y, c.Z);
 
             // bind interleaved vertex data
             GL.EnableClientState(ArrayCap.VertexArray);
@@ -179,8 +175,7 @@ namespace Template_P3
             // enable texture
             GL.ActiveTexture(TextureUnit.Texture0);
             GL.BindTexture(TextureTarget.Texture2D, texture.id);
-            int texLoc = GL.GetUniformLocation(shader.programID, "pixels");
-            GL.Uniform1(texLoc, 0);
+            GL.Uniform1(shader.uniform_texture, 0);
 
             // enable shader
 
@@ -236,7 +231,7 @@ namespace Template_P3
                 // enable texture
                 GL.ActiveTexture(TextureUnit.Texture0);
                 GL.BindTexture(TextureTarget.Texture2D, texture.id);
-                GL.Uniform1(shader.uniform_pixels, 0);
+                GL.Uniform1(shader.uniform_texture, 0);
             }
 
             // set material
@@ -306,4 +301,4 @@ namespace Template_P3
             public int Index0, Index1, Index2, Index3;
         }
     }
-} // namespace Template_P3
+}

@@ -17,7 +17,7 @@ namespace template_P3
         {
             GL.ProgramUniform3(shader.programID, shader.uniform_color, color);
 
-            mesh.Render(shader, c.getCameraMatrix(), m, texture);
+            mesh.Render(shader, c.CameraMatrix, m, texture);
         }
     }
 }

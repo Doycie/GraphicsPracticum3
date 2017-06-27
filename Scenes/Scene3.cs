@@ -71,7 +71,7 @@ namespace template_P3
 
             lights = new List<EntityLight>();
 
-            lights.Add(new EntityLight(new Mesh("../../assets/sphere.obj"), shader_light, null, new Vector3(600, 600, 600)));
+            lights.Add(new EntityLight(new Mesh("../../assets/sphere.obj"), shader_light, null, new Vector3(2000, 2000, 2000)));
             lights[0].SetPostition(new Vector3(0, 10, 3));
 
             lights.Add(new EntityLight(new Mesh("../../assets/sphere.obj"), shader_light, null, new Vector3(250, 0, 0)));
@@ -89,7 +89,7 @@ namespace template_P3
         {
             float time = (float)(Utility.currentTimeInMilliseconds % 4000 / 2000f * Math.PI);
 
-            GL.ProgramUniform1(shader_cloud.programID, shader_cloud.uniform_time, (Utility.currentTimeInMilliseconds % 100000) / 8000f);
+            GL.ProgramUniform1(shader_cloud.programID, shader_cloud.uniform_ftime, (Utility.currentTimeInMilliseconds % 100000) / 8000f);
 
             pinguin.translation = new Vector3((float)(4 * Math.Sin(2 * time)), -2.5f, (float)(20 * Math.Sin(time)));
 
@@ -102,7 +102,7 @@ namespace template_P3
         {
             //render skybox
             GL.DepthMask(false);
-            skyboxmesh.RenderCubeMap(shader_cloud, c.getCameraRotationMatrix(), c.getCameraProjMatrix(), null);
+            skyboxmesh.RenderCubeMap(shader_cloud, c.CameraRotationMatrix, c.CameraProjMatrix, null);
             GL.DepthMask(true);
 
             //render scenegraph

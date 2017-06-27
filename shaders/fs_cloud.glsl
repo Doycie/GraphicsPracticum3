@@ -1,7 +1,8 @@
 ﻿#version 330
  
 in vec3 vertex;
-in float vtime;
+
+uniform float time;
 
 // shader output
 out vec4 outputColor;
@@ -75,7 +76,7 @@ void main()
 {
 	vec3 n = normalize(vertex);
 	
-	vec2 v = vec2((acos(n.z) + PI + vtime), atan(n.y / n.x) + PI);
+	vec2 v = vec2((acos(n.z) + PI + time), atan(n.y / n.x) + PI);
 		
 	float total = 0;
 	float frequency = 25;
@@ -91,6 +92,6 @@ void main()
 	outputColor = vec4(.05,0.1,0.8,1) * 0.5 + noise ;
 	
 
-	//outputColor = texture( pixels, uv ) + 0.5f * vec4( normal.xyz, 1 );
+	//outputColor = texture( tex, uv ) + 0.5f * vec4( normal.xyz, 1 );
 }
 

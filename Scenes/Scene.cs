@@ -1,5 +1,6 @@
 ﻿using OpenTK;
 using OpenTK.Graphics.OpenGL;
+using OpenTK.Input;
 using System.Collections.Generic;
 using Template_P3;
 
@@ -35,6 +36,18 @@ namespace template_P3
             LoadScene();
 
             PushLightsToShader();
+        }
+
+        public virtual void Input(KeyboardState k)
+        {
+            if (k.IsKeyDown(Key.C))
+                GL.ProgramUniform1(postproc.programID, postproc.uniform_chromatic_abberation, 1);
+            else if (k.IsKeyDown(Key.F))
+                GL.ProgramUniform1(postproc.programID, postproc.uniform_chromatic_abberation, 0);
+            if (k.IsKeyDown(Key.V))
+                GL.ProgramUniform1(postproc.programID, postproc.uniform_vignetting, 1);
+            else if (k.IsKeyDown(Key.G))
+                GL.ProgramUniform1(postproc.programID, postproc.uniform_vignetting, 0);
         }
 
         public abstract void Update(long delta_t);

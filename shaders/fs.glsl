@@ -3,17 +3,17 @@
 const int maxLights = 4;
 
 uniform int lightsAmount = 4;
-
-uniform vec3 ambient;
-
 uniform vec3 lightPos[maxLights];
 uniform vec3 lightColor[maxLights];
+
+uniform vec3 ambient;
 
 // shader input
 in vec2 uv;						// interpolated texture coordinates
 in vec3 normal;					// interpolated normal
 in vec3 vertex;
-uniform sampler2D pixels;		// texture sampler
+
+uniform sampler2D tex;		// texture sampler
 uniform samplerCube skybox;
 uniform vec3 campos;
 
@@ -67,7 +67,7 @@ vec3 reflectionColor(){
 // fragment shader
 void main()
 {
-	if(texture(pixels,uv).w < 0.5){
+	if(texture(tex,uv).w < 0.5){
 		discard;
 	}
 
@@ -76,5 +76,5 @@ void main()
 	vec3 refl = reflectionColor();
 		
 	vec3 total = lambSpec + refr + refl;
-	outputColor = vec4(total * texture(pixels,uv).xyz, 1.0);
+	outputColor = vec4(total * texture(tex,uv).xyz, 1.0);
 }

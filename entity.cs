@@ -7,17 +7,15 @@ public abstract class Entity
     public Vector3 rotation;
     public Vector3 translation;
     public Vector3 scale;
-    protected Mesh mesh;
 
     protected Shader shader;
-
-    public List<Entity> children;         //points to the parent, if it stays null it does not have a parent
-    public Entity parent = null;
+    protected Mesh mesh;
     protected Texture texture;       // texture to use for rendering
 
-    /// <summary>
-    /// Method loops through all the parents, slow for rendering but necesarry for eg lights.
-    /// </summary>
+    public List<Entity> children;         
+    public Entity parent = null;     //points to the parent, if it stays null it does not have a parent
+
+    // Method loops through all the parents, slow for rendering but necesarry for eg. lights.
     public Vector3 GlobalLocation
     {
         get
@@ -29,6 +27,7 @@ public abstract class Entity
         }
     }
 
+    // Returns the matrix used to transform this entity to worldspace.
     public Matrix4 GlobalModelMatrix
     {
         get
