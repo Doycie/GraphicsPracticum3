@@ -17,7 +17,7 @@ Features:
   		the method reflect in GLSL so this was taken from the documentation as specified in fs.glsl
 	-Vignetting and chromatic aberration are added. they can be turned on in the post_fs.glsl by setting their bools to true
 	-A cloud rendering shader see scene 3 ( using brownian noise and perlin)
-	
+	-Fur material and shader, it can be scene in scene 1 and 2.
 
 Used materials:
 	-refract method in fs.glsl from khronos opengl documentation.
