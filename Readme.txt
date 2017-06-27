@@ -2,9 +2,13 @@
 5910137 Cody Arets
 5937949 Faris van Hien
 
-Control the camera with WASD and rotate it with the arrow keys, to switch scenes press the number keys.
+Controls:
+  Control the camera with WASD and rotate it with the arrow keys, to switch scenes press the number keys.
+  Turning on chromatic abberation can be done with C to turn it off use F.
+  Turning on vignetting can be done with V to turn if off use G
 
-Besides the required features several extras have been addded:
+Features:
+  Besides the required features several extras have been addded:
 	-Support for multiple scenes, switch between scenes by pressing the number keys in the application. 
 	-The lights are dynamic and can be added easily. They are defined in C# and pushed to the shader.
 	-Cube mapping has been added. See the skybox which is rendered in 2 scenes.
