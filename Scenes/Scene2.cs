@@ -20,8 +20,8 @@ namespace template_P3
             kart1, kart2, kart3, mario, peach, yoshi, wheel1, wheel2, wheel3,
             map, star;                 // a mesh to draw using OpenGL
 
-        private Shader postproc;                        // shader to use for post processing
         private Shader shader_sky;
+        private Shader shader_light;
         private Shader shader_fur;
 
         private Texture woodtex;
@@ -62,6 +62,7 @@ namespace template_P3
             shader = new Shader("../../shaders/vs.glsl", "../../shaders/fs.glsl");
             shader_sky = new Shader("../../shaders/vs_sky.glsl", "../../shaders/fs_sky.glsl");
             postproc = new Shader("../../shaders/vs_post.glsl", "../../shaders/fs_post.glsl");
+            shader_light = new Shader("../../shaders/vs.glsl", "../../shaders/fs_light.glsl");
             shader_fur = new Shader("../../shaders/vs_fur.glsl", "../../shaders/fs_fur.glsl");
 
             // load entities
@@ -112,15 +113,17 @@ namespace template_P3
             skyboxmesh = new Mesh("../../assets/cube1.obj");
 
             lights = new List<EntityLight>();
-            lights.Add(new EntityLight(null, null, null, new Vector3(20, 0, 0)));
+            lights.Add(new EntityLight(new Mesh("../../assets/sphere.obj"), shader_light, null, new Vector3(20, 0, 0)));
             lights[0].SetPostition(new Vector3(5, 1, -3));
 
-            lights.Add(new EntityLight(null, null, null, new Vector3(0, 0, 20)));
+            lights.Add(new EntityLight(new Mesh("../../assets/sphere.obj"), shader_light, null, new Vector3(0, 0, 20)));
             lights[1].SetPostition(new Vector3(5, 1, -5));
 
             lights.Add(new EntityLight(null, null, null, new Vector3(20, 20, 20)));
             lights[2].SetPostition(new Vector3(0, 2, -4));
 
+            for (int i = 0; i < lights.Count - 1; i++)
+                scenegraph.AddRootEntity(lights[i]);
         }
         public override void Update(long delta_t)
         {

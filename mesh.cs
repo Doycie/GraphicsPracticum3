@@ -65,12 +65,14 @@ namespace Template_P3
 
             GL.UseProgram(shader.programID);
             // enable texture
-            GL.ActiveTexture(TextureUnit.Texture0);
-            GL.BindTexture(TextureTarget.TextureCubeMap, texture.id);
-            int texLoc = GL.GetUniformLocation(shader.programID, "TexCube");
-            GL.Uniform1(texLoc, 0);
 
-            // enable shader
+            if(texture != null)
+            {
+                GL.ActiveTexture(TextureUnit.Texture0);
+                GL.BindTexture(TextureTarget.TextureCubeMap, texture.id);
+                int texLoc = GL.GetUniformLocation(shader.programID, "TexCube");
+                GL.Uniform1(texLoc, 0);
+            }
 
             // pass transform to vertex shader
             GL.UniformMatrix4(shader.uniform_mview, false, ref projMatrix);
