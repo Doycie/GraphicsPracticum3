@@ -22,7 +22,21 @@ public abstract class Entity
     {
         get
         {
-            return translation + ((parent != null) ? parent.GlobalLocation : Vector3.Zero);
+            if (parent == null)
+                return translation;
+            else
+                return new Vector3(new Vector4(translation, 1.0f) * parent.GlobalModelMatrix);
+        }
+    }
+
+    public Matrix4 GlobalModelMatrix
+    {
+        get
+        {
+            if (parent == null)
+                return ModelMatrix;
+            else
+                return ModelMatrix * parent.GlobalModelMatrix;
         }
     }
 

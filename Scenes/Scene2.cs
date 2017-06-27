@@ -114,7 +114,7 @@ namespace template_P3
 
             lights = new List<EntityLight>();
             lights.Add(new EntityLight(new Mesh("../../assets/sphere.obj"), shader_light, null, new Vector3(20, 0, 0)));
-            lights[0].SetPostition(new Vector3(5, 1, -3));
+            lights[0].SetPostition(new Vector3(5, 5, -3));
 
             lights.Add(new EntityLight(new Mesh("../../assets/sphere.obj"), shader_light, null, new Vector3(0, 0, 20)));
             lights[1].SetPostition(new Vector3(5, 1, -5));
