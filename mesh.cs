@@ -66,7 +66,7 @@ namespace Template_P3
             GL.UseProgram(shader.programID);
             // enable texture
 
-            if(texture != null)
+            if (texture != null)
             {
                 GL.ActiveTexture(TextureUnit.Texture0);
                 GL.BindTexture(TextureTarget.TextureCubeMap, texture.id);
@@ -231,7 +231,7 @@ namespace Template_P3
 
             GL.UseProgram(shader.programID);
 
-            if(texture != null)
+            if (texture != null)
             {
                 // enable texture
                 GL.ActiveTexture(TextureUnit.Texture0);

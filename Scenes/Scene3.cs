@@ -51,7 +51,6 @@ namespace template_P3
 
             furtex = new Texture("../../assets/fur2.png");
 
-
             //Load skybox
             skyboxmesh = new Mesh("../../assets/cube1.obj");
 
@@ -61,7 +60,7 @@ namespace template_P3
 
             floor = new EntityFur(new Mesh("../../assets/floor.obj"), shader_fur, furtex);
             floor.scale = new Vector3(5, 5, 5);
-            floor.Move(new Vector3(0,0, -10f));
+            floor.Move(new Vector3(0, 0, -10f));
 
             //Add them to scenegraph
             scenegraph = new SceneGraph();
@@ -88,13 +87,13 @@ namespace template_P3
 
         public override void Update(long delta_t)
         {
-            float time = (float) (Utility.currentTimeInMilliseconds % 4000 / 2000f * Math.PI);
+            float time = (float)(Utility.currentTimeInMilliseconds % 4000 / 2000f * Math.PI);
 
             GL.ProgramUniform1(shader_cloud.programID, shader_cloud.uniform_time, (Utility.currentTimeInMilliseconds % 100000) / 8000f);
 
-            pinguin.translation = new Vector3((float) (4 * Math.Sin(2 * time)), -2.5f, (float) (20 * Math.Sin(time)));
+            pinguin.translation = new Vector3((float)(4 * Math.Sin(2 * time)), -2.5f, (float)(20 * Math.Sin(time)));
 
-            lights[1].translation = new Vector3(7f, (float) (7f * Math.Abs((Math.Cos(time * 2)))) - 7f, 0.6f);
+            lights[1].translation = new Vector3(7f, (float)(7f * Math.Abs((Math.Cos(time * 2)))) - 7f, 0.6f);
 
             PushLightsToShader();
         }

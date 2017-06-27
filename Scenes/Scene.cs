@@ -1,8 +1,6 @@
 ﻿using OpenTK;
 using OpenTK.Graphics.OpenGL;
-using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using Template_P3;
 
 namespace template_P3

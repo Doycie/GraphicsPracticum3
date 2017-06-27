@@ -94,7 +94,7 @@ namespace Template_P3
             GL.Clear(ClearBufferMask.DepthBufferBit);
             GL.Disable(EnableCap.Texture2D);
             // do OpenGL rendering
-            
+
             game.RenderGL();
             // swap buffers
             SwapBuffers();

@@ -1,6 +1,6 @@
 ﻿using OpenTK;
-using Template_P3;
 using OpenTK.Graphics.OpenGL;
+using Template_P3;
 
 namespace template_P3
 {

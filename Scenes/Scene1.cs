@@ -30,7 +30,8 @@ namespace template_P3
 
         Vector3 a = new Vector3(0, 0, 0);
 
-        protected override void LoadScene() {
+        protected override void LoadScene()
+        {
             //load textures
             List<String> a = new List<string>();
             a.Add("ft.png");
@@ -52,7 +53,7 @@ namespace template_P3
             shader_fur = new Shader("../../shaders/vs_fur.glsl", "../../shaders/fs_fur.glsl");
 
             // load entities
-            pot = new EntitySkyReflect(new Mesh("../../assets/teapot.obj",0.3f,0.3f,0.3f), shader, woodtex, skyboxtex);
+            pot = new EntitySkyReflect(new Mesh("../../assets/teapot.obj", 0.3f, 0.3f, 0.3f), shader, woodtex, skyboxtex);
             floor = new EntityFur(new Mesh("../../assets/floor.obj"), shader_fur, furtex);
             floor2 = new EntitySkyReflect(new Mesh("../../assets/floor.obj"), shader, woodtex, skyboxtex);
             penguin = new EntitySkyReflect(new Mesh("../../assets/pin.obj"), shader, woodtex, skyboxtex);
@@ -95,8 +96,8 @@ namespace template_P3
         public override void Update(long delta_t)
         {
             penguin2.rotation += new Vector3(0, 0, delta_t / 500f);
-            floor.rotation = new Vector3(0, (float) Math.Sin(Utility.currentTimeInMilliseconds % 4000 / 2000f * Math.PI), 0);
-            lights[0].SetPostition(lights[0].GlobalLocation +  new Vector3(0, 0, (float)Math.Sin(Utility.currentTimeInMilliseconds % 4000 / 2000f * Math.PI)));
+            floor.rotation = new Vector3(0, (float)Math.Sin(Utility.currentTimeInMilliseconds % 4000 / 2000f * Math.PI), 0);
+            lights[0].SetPostition(lights[0].GlobalLocation + new Vector3(0, 0, (float)Math.Sin(Utility.currentTimeInMilliseconds % 4000 / 2000f * Math.PI)));
 
             PushLightsToShader();
         }
