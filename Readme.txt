@@ -1,6 +1,6 @@
 6051529 Dennis Arets
 5910137 Cody Arets
-	Faris van Hien
+5937949	Faris van Hien
 
 Besides the required features several extras have been addded:
 	-Support for multiple scenes, switch between scenes by pressing the number keys in the application. 
@@ -16,3 +16,4 @@ Besides the required features several extras have been addded:
 Used materials:
 	-refract method in fs.glsl from khronos opengl documentation.
 	-the sky images come from [WTF?]Mr-Gibs see the readme in the assets folder for futher information
+	-datboi scene 4 Dat-boi by Douwef1 is licensed under CC Attribution
