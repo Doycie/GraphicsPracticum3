@@ -1,5 +1,4 @@
 ﻿using OpenTK;
-using System;
 using System.Collections.Generic;
 
 namespace Template_P3
@@ -27,7 +26,7 @@ namespace Template_P3
 
         public void Render(Camera c)
         {
-            for(int i = 0; i < rootEntities.Count; i++)
+            for (int i = 0; i < rootEntities.Count; i++)
             {
                 RenderEntity(rootEntities[i], c, Matrix4.Identity);
             }
@@ -37,7 +36,7 @@ namespace Template_P3
         {
             Matrix4 res = e.ModelMatrix * m;
             e.Render(c, res);
-            for(int i = 0; i < e.children.Count; i++)
+            for (int i = 0; i < e.children.Count; i++)
                 RenderEntity(e.children[i], c, res);
         }
     }

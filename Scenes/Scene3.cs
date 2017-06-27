@@ -12,21 +12,21 @@ namespace template_P3
         {
             get
             {
-                return "LightBox";
+                return "Outdoor Sky Basketball";
             }
         }
 
-        private Entity box;                  // a mesh to draw using OpenGL
+        private Entity pinguin, floor;                  // a mesh to draw using OpenGL
 
         private Shader shader_light;
         private Shader shader_cloud;
+        private Shader shader_fur;
 
         private Texture woodtex;
         private Texture skyboxtex;
+        private Texture furtex;
 
         private Mesh skyboxmesh;
-
-        Vector3 a = new Vector3(0, 0, 0);
 
         protected override void LoadScene()
         {
@@ -47,48 +47,53 @@ namespace template_P3
             shader_light = new Shader("../../shaders/vs.glsl", "../../shaders/fs_light.glsl");
             postproc = new Shader("../../shaders/vs_post.glsl", "../../shaders/fs_post.glsl");
             shader_cloud = new Shader("../../shaders/vs_cloud.glsl", "../../shaders/fs_cloud.glsl");
+            shader_fur = new Shader("../../shaders/vs_fur.glsl", "../../shaders/fs_fur.glsl");
+
+            furtex = new Texture("../../assets/fur2.png");
 
             //Load skybox
             skyboxmesh = new Mesh("../../assets/cube1.obj");
 
             // load entities
-            box = new EntitySkyReflect(new Mesh("../../assets/pin.obj"), shader, woodtex, skyboxtex);
-            box.scale = new Vector3(5, 5, 5);
+            pinguin = new EntitySkyReflect(new Mesh("../../assets/pin.obj"), shader, woodtex, skyboxtex);
+            pinguin.scale = new Vector3(0.25f, 0.25f, 0.25f);
+
+            floor = new EntityFur(new Mesh("../../assets/floor.obj"), shader_fur, furtex);
+            floor.scale = new Vector3(5, 5, 5);
+            floor.Move(new Vector3(0, 0, -10f));
 
             //Add them to scenegraph
             scenegraph = new SceneGraph();
-            scenegraph.AddRootEntity(box);
+            scenegraph.AddRootEntity(floor);
+            scenegraph.AddEntity(pinguin, floor);
+
+            //Load lightning
 
             lights = new List<EntityLight>();
 
-            lights.Add(new EntityLight(new Mesh("../../assets/sphere.obj"), shader_light, null, new Vector3(200, 0, 0)));
+            lights.Add(new EntityLight(new Mesh("../../assets/sphere.obj"), shader_light, null, new Vector3(600, 600, 600)));
+            lights[0].SetPostition(new Vector3(0, 10, 3));
 
-            lights.Add(new EntityLight(new Mesh("../../assets/sphere.obj"), shader_light, null, new Vector3(0, 250, 0)));
-            lights[1].SetPostition(new Vector3(-5, 0, 0));
+            lights.Add(new EntityLight(new Mesh("../../assets/sphere.obj"), shader_light, null, new Vector3(250, 0, 0)));
+            lights[1].scale = new Vector3(0.5f, 0.5f, 0.5f);
+            lights[1].SetPostition(new Vector3(3.5f, 0, 0.6f));
 
-            lights.Add(new EntityLight(new Mesh("../../assets/sphere.obj"), shader_light, null, new Vector3(0, 0, 200)));
-            lights[2].SetPostition(new Vector3(10, 0, 0));
+            ambient = new Vector3(0.0f, 0.0f, 0.8f);
 
-            lights.Add(new EntityLight(new Mesh("../../assets/sphere.obj"), shader_light, null, new Vector3(200, 200, 200)));
-            lights[3].SetPostition(new Vector3(0, 10, 3));
-
-            scenegraph.AddRootEntity(lights[0]);
-
-            for (int i = 1; i < lights.Count; i++)
-                scenegraph.AddEntity(lights[i], box);
+            //Add the lightning to the scenegraph
+            scenegraph.AddEntity(lights[0], floor);
+            scenegraph.AddEntity(lights[1], pinguin);
         }
 
         public override void Update(long delta_t)
         {
-            float time = (float) (Utility.currentTimeInMilliseconds % 4000 / 2000f * Math.PI);
+            float time = (float)(Utility.currentTimeInMilliseconds % 4000 / 2000f * Math.PI);
 
             GL.ProgramUniform1(shader_cloud.programID, shader_cloud.uniform_time, (Utility.currentTimeInMilliseconds % 100000) / 8000f);
 
-            box.rotation = new Vector3(0, time, 0);
+            pinguin.translation = new Vector3((float)(4 * Math.Sin(2 * time)), -2.5f, (float)(20 * Math.Sin(time)));
 
-            lights[2].translation = new Vector3((float)(4 * Math.Sin(time)) + 10, 0.0f, 0.0f);
-
-            lights[0].translation = new Vector3(23 * (float)(Math.Sin(2 * time)), 16 * (float)(Math.Sin(time)), 33 * (float)(Math.Sin(time)));
+            lights[1].translation = new Vector3(7f, (float)(7f * Math.Abs((Math.Cos(time * 2)))) - 7f, 0.6f);
 
             PushLightsToShader();
         }

@@ -1,5 +1,4 @@
 ﻿using OpenTK;
-using System;
 using System.Diagnostics;
 using template_P3;
 
@@ -75,12 +74,11 @@ namespace Template_P3
                 SwitchScene(new Scene4());
             else if (k.IsKeyDown(OpenTK.Input.Key.Number3))
                 SwitchScene(new Scene3());
-
         }
 
         public void SwitchScene(Scene scene)
         {
-            if(this.scene == null || this.scene.NAME != scene.NAME)
+            if (this.scene == null || this.scene.NAME != scene.NAME)
             {
                 this.scene = scene;
                 scene.Load();
@@ -100,7 +98,6 @@ namespace Template_P3
                 target.Unbind();
 
                 scene.DrawPost(quad, target);
-
             }
         }
     }

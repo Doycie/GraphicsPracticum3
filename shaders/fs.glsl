@@ -45,7 +45,7 @@ vec3 diffuseSpecularityColor(){
 		vec3 dir = normalize(lightdir + viewdirection);
 		float specular = max(dot(dir, normal), 0.0);
 		
-		outColor +=  specularity * lightColor[i].xyz * specular*specular*specular*specular/(( length(lightPos[i] - vertex) *( length(lightPos[i] - vertex))));
+		outColor +=  specularity * lightColor[i] * specular*specular*specular*specular/(( length(lightPos[i] - vertex) *( length(lightPos[i] - vertex))));
 		outColor +=  diffuse * lightColor[i].xyz * lamb /(( length(lightPos[i] - vertex) *( length(lightPos[i] - vertex)))); 
 	}
 

@@ -30,10 +30,7 @@ namespace template_P3
         {
             //load textures
 
-
-          
             datboitex = new Texture("../../assets/dat_boi.png");
-          
 
             // create shaders
             shader = new Shader("../../shaders/vs.glsl", "../../shaders/fs.glsl");
@@ -43,13 +40,11 @@ namespace template_P3
             shader_fur = new Shader("../../shaders/vs_fur.glsl", "../../shaders/fs_fur.glsl");
 
             // load entities
-            datboi = new EntityLight(new Mesh("../../assets/datboi2.obj"), shader, datboitex,new Vector3(1,1,1));
-           
+            datboi = new EntityLight(new Mesh("../../assets/datboi2.obj"), shader, datboitex, new Vector3(1, 1, 1));
 
             //Add them to scenegraph
             scenegraph = new SceneGraph();
             scenegraph.AddRootEntity(datboi);
-  
 
             lights = new List<EntityLight>();
             lights.Add(new EntityLight(new Mesh("../../assets/sphere.obj"), shader_light, null, new Vector3(200, 0, 0)));
@@ -70,7 +65,6 @@ namespace template_P3
 
         public override void Update(long delta_t)
         {
-          
             lights[0].SetPostition(lights[0].GlobalLocation + new Vector3(0, 0, (float)Math.Sin(Utility.currentTimeInMilliseconds % 4000 / 2000f * Math.PI)));
 
             PushLightsToShader();
@@ -80,7 +74,7 @@ namespace template_P3
         {
             //render skybox
             GL.DepthMask(false);
-           
+
             GL.DepthMask(true);
 
             //render scenegraph

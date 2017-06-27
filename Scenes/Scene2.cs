@@ -27,6 +27,7 @@ namespace template_P3
         private Texture woodtex;
         private Texture skyboxtex;
         private Texture furtex;
+
         private Texture mkartex, pkartex, ykartex, martex, peatex, yostex, wheeltex, nultex,
             maptex1, startex;
 
@@ -34,7 +35,8 @@ namespace template_P3
 
         Vector3 a = new Vector3(0, 0, 0);
 
-        protected override void LoadScene() {
+        protected override void LoadScene()
+        {
             //load textures
             List<String> a = new List<string>();
             a.Add("ft.png");
@@ -80,7 +82,6 @@ namespace template_P3
             map = new EntitySkyReflect(new Mesh("../../assets/Mario Kart/Maps/KPBeach/KoopaTroopaBeach.obj"), shader, maptex1, skyboxtex);
             star = new EntitySkyReflect(new Mesh("../../assets/Mario Kart/Star/Star.obj"), shader, startex, skyboxtex);
 
-
             //Move and scale entities
             map.Move(new Vector3(0, -2, -1));
             floor.Move(new Vector3(0, 0, -4));
@@ -114,7 +115,7 @@ namespace template_P3
 
             lights = new List<EntityLight>();
             lights.Add(new EntityLight(new Mesh("../../assets/sphere.obj"), shader_light, null, new Vector3(20, 0, 0)));
-            lights[0].SetPostition(new Vector3(5, 1, -3));
+            lights[0].SetPostition(new Vector3(5, 5, -3));
 
             lights.Add(new EntityLight(new Mesh("../../assets/sphere.obj"), shader_light, null, new Vector3(0, 0, 20)));
             lights[1].SetPostition(new Vector3(5, 1, -5));
@@ -125,13 +126,14 @@ namespace template_P3
             for (int i = 0; i < lights.Count - 1; i++)
                 scenegraph.AddRootEntity(lights[i]);
         }
+
         public override void Update(long delta_t)
         {
-            lights[0].SetPostition(lights[0].GlobalLocation +  new Vector3(0, 0, (float)Math.Sin(Utility.currentTimeInMilliseconds % 4000 / 2000f * Math.PI)));
-            if((Utility.currentTimeInMilliseconds % 2000) > 1000)
+            lights[0].SetPostition(lights[0].GlobalLocation + new Vector3(0, 0, (float)Math.Sin(Utility.currentTimeInMilliseconds % 4000 / 2000f * Math.PI)));
+            if ((Utility.currentTimeInMilliseconds % 2000) > 1000)
             {
                 floor.Move(new Vector3(-.001f, 0, -.0005f));
-                star.Move(new Vector3(0,-.02f,0));
+                star.Move(new Vector3(0, -.02f, 0));
             }
             else
             {
