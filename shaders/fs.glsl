@@ -25,7 +25,7 @@ uniform float eta;
 // shader output
 out vec4 outputColor;
 
-// method copied from khronos opengl documentation.
+// method copied from khronos opengl documentation. For older openGL versions
 vec3 refract(vec3 I, vec3 N, float eta){
 	float k = 1.0 - eta * eta * (1.0 - dot(N, I) * dot(N, I));
 	if (k < 0.0)
